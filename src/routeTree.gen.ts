@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ImpactRouteImport } from './routes/impact'
+import { Route as GetInvolvedRouteImport } from './routes/get-involved'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BakeriesRouteImport } from './routes/bakeries'
 import { Route as AboutRouteImport } from './routes/about'
@@ -18,6 +19,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const ImpactRoute = ImpactRouteImport.update({
   id: '/impact',
   path: '/impact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GetInvolvedRoute = GetInvolvedRouteImport.update({
+  id: '/get-involved',
+  path: '/get-involved',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/bakeries': typeof BakeriesRoute
   '/contact': typeof ContactRoute
+  '/get-involved': typeof GetInvolvedRoute
   '/impact': typeof ImpactRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/bakeries': typeof BakeriesRoute
   '/contact': typeof ContactRoute
+  '/get-involved': typeof GetInvolvedRoute
   '/impact': typeof ImpactRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,28 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/bakeries': typeof BakeriesRoute
   '/contact': typeof ContactRoute
+  '/get-involved': typeof GetInvolvedRoute
   '/impact': typeof ImpactRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/bakeries' | '/contact' | '/impact'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/bakeries'
+    | '/contact'
+    | '/get-involved'
+    | '/impact'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/bakeries' | '/contact' | '/impact'
-  id: '__root__' | '/' | '/about' | '/bakeries' | '/contact' | '/impact'
+  to: '/' | '/about' | '/bakeries' | '/contact' | '/get-involved' | '/impact'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/bakeries'
+    | '/contact'
+    | '/get-involved'
+    | '/impact'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +98,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BakeriesRoute: typeof BakeriesRoute
   ContactRoute: typeof ContactRoute
+  GetInvolvedRoute: typeof GetInvolvedRoute
   ImpactRoute: typeof ImpactRoute
 }
 
@@ -86,6 +109,13 @@ declare module '@tanstack/react-router' {
       path: '/impact'
       fullPath: '/impact'
       preLoaderRoute: typeof ImpactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/get-involved': {
+      id: '/get-involved'
+      path: '/get-involved'
+      fullPath: '/get-involved'
+      preLoaderRoute: typeof GetInvolvedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -124,6 +154,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BakeriesRoute: BakeriesRoute,
   ContactRoute: ContactRoute,
+  GetInvolvedRoute: GetInvolvedRoute,
   ImpactRoute: ImpactRoute,
 }
 export const routeTree = rootRouteImport
