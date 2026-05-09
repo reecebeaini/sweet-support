@@ -180,3 +180,47 @@
   .shadow-soft { box-shadow: var(--shadow-soft); }
   .shadow-warm { box-shadow: var(--shadow-warm); }
 }
+
+@layer utilities {
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-left { transform: translateX(-32px); }
+  .reveal-right { transform: translateX(32px); }
+  .reveal-left.in-view,
+  .reveal-right.in-view { transform: translateX(0); }
+  .reveal-zoom { transform: scale(0.94); }
+  .reveal-zoom.in-view { transform: scale(1); }
+
+  .delay-100 { transition-delay: 0.1s; }
+  .delay-200 { transition-delay: 0.2s; }
+  .delay-300 { transition-delay: 0.3s; }
+  .delay-400 { transition-delay: 0.4s; }
+
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-warm);
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .animate-float { animation: float-slow 6s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .animate-float { animation: none; }
+  }
+}
