@@ -82,6 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "We rescue surplus pastries from local bakeries and deliver them to communities in need." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "google-site-verification", content: "H92fLqK1z45lnknGvfenJ_CcQjDNp7P1WUClEQOM7ks" },
     ],
     links: [
       {
