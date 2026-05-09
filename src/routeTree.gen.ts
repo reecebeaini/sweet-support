@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ImpactRouteImport } from './routes/impact'
 import { Route as GetInvolvedRouteImport } from './routes/get-involved'
+import { Route as DonateRouteImport } from './routes/donate'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BakeriesRouteImport } from './routes/bakeries'
 import { Route as AboutRouteImport } from './routes/about'
@@ -24,6 +25,11 @@ const ImpactRoute = ImpactRouteImport.update({
 const GetInvolvedRoute = GetInvolvedRouteImport.update({
   id: '/get-involved',
   path: '/get-involved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DonateRoute = DonateRouteImport.update({
+  id: '/donate',
+  path: '/donate',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/bakeries': typeof BakeriesRoute
   '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/get-involved': typeof GetInvolvedRoute
   '/impact': typeof ImpactRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/bakeries': typeof BakeriesRoute
   '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/get-involved': typeof GetInvolvedRoute
   '/impact': typeof ImpactRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/bakeries': typeof BakeriesRoute
   '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/get-involved': typeof GetInvolvedRoute
   '/impact': typeof ImpactRoute
 }
@@ -79,16 +88,25 @@ export interface FileRouteTypes {
     | '/about'
     | '/bakeries'
     | '/contact'
+    | '/donate'
     | '/get-involved'
     | '/impact'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/bakeries' | '/contact' | '/get-involved' | '/impact'
+  to:
+    | '/'
+    | '/about'
+    | '/bakeries'
+    | '/contact'
+    | '/donate'
+    | '/get-involved'
+    | '/impact'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/bakeries'
     | '/contact'
+    | '/donate'
     | '/get-involved'
     | '/impact'
   fileRoutesById: FileRoutesById
@@ -98,6 +116,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BakeriesRoute: typeof BakeriesRoute
   ContactRoute: typeof ContactRoute
+  DonateRoute: typeof DonateRoute
   GetInvolvedRoute: typeof GetInvolvedRoute
   ImpactRoute: typeof ImpactRoute
 }
@@ -116,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/get-involved'
       fullPath: '/get-involved'
       preLoaderRoute: typeof GetInvolvedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/donate': {
+      id: '/donate'
+      path: '/donate'
+      fullPath: '/donate'
+      preLoaderRoute: typeof DonateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -154,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BakeriesRoute: BakeriesRoute,
   ContactRoute: ContactRoute,
+  DonateRoute: DonateRoute,
   GetInvolvedRoute: GetInvolvedRoute,
   ImpactRoute: ImpactRoute,
 }
