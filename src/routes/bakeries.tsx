@@ -1,0 +1,63 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+
+export const Route = createFileRoute("/bakeries")({
+  head: () => ({
+    meta: [
+      { title: "Partner Bakeries — Page Order" },
+      { name: "description", content: "Meet the bakeries that make our work possible." },
+    ],
+  }),
+  component: BakeriesPage,
+});
+
+const bakeries = [
+  { name: "Goody's Donuts", quote: "Partnering with Page Order means our daily surplus becomes a daily gift to the community." },
+  { name: "K&T Donuts", quote: "It's incredible knowing our pastries reach families instead of the trash." },
+  { name: "Yum Yum Donuts", quote: "A simple, organized program that genuinely makes a difference." },
+  { name: "Fresh Bagel and Cafe", quote: "Reducing waste while supporting neighbors — it's a win for everyone." },
+];
+
+function BakeriesPage() {
+  return (
+    <>
+      <section className="bg-gradient-hero">
+        <div className="mx-auto max-w-4xl px-6 py-24 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brown-soft">Partner bakeries</p>
+          <h1 className="mt-4 font-display text-5xl text-brown md:text-6xl">The heart of our mission</h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+            These local bakeries make our work possible by sharing their surplus instead of throwing it away.
+          </p>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 py-20">
+        <div className="grid gap-6 md:grid-cols-2">
+          {bakeries.map((b) => (
+            <div key={b.name} className="rounded-[2rem] bg-cream-deep p-10 shadow-soft">
+              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-pastel font-display text-3xl text-brown">
+                {b.name.charAt(0)}
+              </div>
+              <h3 className="mt-6 font-display text-2xl text-brown">{b.name}</h3>
+              <p className="mt-4 text-muted-foreground">"{b.quote}"</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-4xl px-6 pb-24">
+        <div className="rounded-[2rem] bg-brown p-12 text-center text-cream">
+          <h2 className="font-display text-3xl md:text-4xl">Run a bakery? Partner with us.</h2>
+          <p className="mx-auto mt-4 max-w-xl text-cream/80">
+            Turn end-of-day surplus into community impact. We make the process simple, organized, and rewarding.
+          </p>
+          <Link to="/get-involved" className="mt-6 inline-block">
+            <Button size="lg" className="rounded-full bg-orange-pastel text-brown hover:bg-orange-pastel/90">
+              Become a Partner
+            </Button>
+          </Link>
+        </div>
+      </section>
+    </>
+  );
+}
