@@ -9,6 +9,7 @@ const links = [
   { to: "/impact", label: "Impact" },
   { to: "/bakeries", label: "Bakeries" },
   { to: "/get-involved", label: "Get Involved" },
+  { to: "/donate", label: "Donate" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -35,8 +36,8 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <Link to="/get-involved" className="hidden md:inline-flex">
-          <Button className="rounded-full bg-brown text-cream hover:bg-brown/90">Volunteer</Button>
+        <Link to="/donate" className="hidden md:inline-flex">
+          <Button className="rounded-full bg-brown text-cream hover:bg-brown/90">Donate</Button>
         </Link>
         <button
           className="md:hidden text-brown"
