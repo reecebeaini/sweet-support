@@ -35,11 +35,11 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <Link to="/donate" className="hidden md:inline-flex">
+        <Link to="/donate" className="hidden lg:inline-flex">
           <Button className="rounded-full bg-brown text-cream hover:bg-brown/90">Donate</Button>
         </Link>
         <button
-          className="md:hidden text-brown"
+          className="lg:hidden text-brown"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -47,7 +47,7 @@ export function SiteHeader() {
         </button>
       </div>
       {open && (
-        <div className="border-t border-border/60 md:hidden">
+        <div className="border-t border-border/60 lg:hidden">
           <nav className="flex flex-col gap-1 px-6 py-4">
             {links.map((l) => (
               <Link
