@@ -7,8 +7,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-6 py-14">
         <div className="grid gap-10 md:grid-cols-3">
           <div>
-            <h3 className="font-display text-2xl font-semibold text-brown">Page Order</h3>
-            <p className="mt-3 max-w-sm text-sm text-muted-foreground">
+            <p className="max-w-sm text-sm text-muted-foreground">
               Making a difference, one donut at a time.
             </p>
           </div>
