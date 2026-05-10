@@ -23,7 +23,7 @@ function BakeriesPage() {
   return (
     <>
       <section className="bg-gradient-hero">
-        <div className="mx-auto max-w-4xl px-6 py-24 text-center">
+        <div className="mx-auto max-w-4xl px-6 py-24 text-center" style={{animation: "fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both"}}>
           <p className="animate-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-brown-soft">Partner bakeries</p>
           <h1 className="animate-fade-up-delay-1 mt-4 font-display text-5xl text-brown md:text-6xl">The heart of our mission</h1>
           <p className="animate-fade-up-delay-2 mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
