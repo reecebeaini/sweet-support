@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import donutsBox from "@/assets/donuts-box.jpg";
+import { Reveal } from "@/components/reveal";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -38,51 +39,58 @@ function AboutPage() {
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:grid-cols-5">
-        <div className="md:col-span-3 space-y-6 text-lg text-muted-foreground">
+        <Reveal variant="left" className="md:col-span-3 space-y-6 text-lg text-muted-foreground">
           <p>Our organization started with a simple realization: thousands of perfectly good donuts and pastries are thrown away every day while many people in local communities continue to face food insecurity.</p>
           <p>What began as a small effort to connect surplus bakery items with people in need quickly grew into a larger mission centered around reducing food waste and strengthening community support.</p>
           <p>By partnering with local bakeries, shelters, churches, and food assistance organizations, we help redirect unsold food that would otherwise go to waste.</p>
           <p>We believe small actions can create meaningful change. Every donated pastry represents compassion, sustainability, and community connection.</p>
-        </div>
-        <div className="md:col-span-2">
+        </Reveal>
+        <Reveal variant="right" delay={100} className="md:col-span-2">
           <img src={donutsBox} alt="Box of pastries" loading="lazy" width={1200} height={900} className="aspect-[3/4] w-full rounded-[2rem] object-cover shadow-soft" />
-        </div>
+        </Reveal>
       </section>
 
-      {/* Leadership */}
       <section className="mx-auto max-w-5xl px-6 py-12">
-        <h2 className="font-display text-3xl text-brown md:text-4xl">Leadership</h2>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          <div className="rounded-2xl bg-cream-deep p-8 shadow-soft">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-pastel font-display text-2xl text-brown">RB</div>
-            <h3 className="mt-4 font-display text-2xl text-brown">Reece Beaini</h3>
-            <p className="text-sm text-muted-foreground">Executive President</p>
+        <Reveal>
+          <h2 className="font-display text-3xl text-brown md:text-4xl">Leadership</h2>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            <div className="rounded-2xl bg-cream-deep p-8 shadow-soft">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-pastel font-display text-2xl text-brown">RB</div>
+              <h3 className="mt-4 font-display text-2xl text-brown">Reece Beaini</h3>
+              <p className="text-sm text-muted-foreground">Executive President</p>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      {/* Goals */}
       <section className="mx-auto max-w-5xl px-6 py-16">
-        <h2 className="font-display text-3xl text-brown md:text-4xl">Our Goals</h2>
+        <Reveal>
+          <h2 className="font-display text-3xl text-brown md:text-4xl">Our Goals</h2>
+        </Reveal>
         <ul className="mt-8 space-y-3">
           {goals.map((g, i) => (
-            <li key={g} className="flex items-start gap-4 rounded-2xl bg-cream-deep p-5">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brown font-display text-sm text-cream">{i + 1}</span>
-              <span className="text-foreground">{g}</span>
-            </li>
+            <Reveal key={g} delay={(Math.min(i, 4) * 100) as 0 | 100 | 200 | 300 | 400}>
+              <li className="flex items-start gap-4 rounded-2xl bg-cream-deep p-5">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brown font-display text-sm text-cream">{i + 1}</span>
+                <span className="text-foreground">{g}</span>
+              </li>
+            </Reveal>
           ))}
         </ul>
       </section>
 
-      {/* Values */}
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <h2 className="font-display text-3xl text-brown md:text-4xl">Our Values</h2>
+        <Reveal>
+          <h2 className="font-display text-3xl text-brown md:text-4xl">Our Values</h2>
+        </Reveal>
         <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {values.map((v) => (
-            <div key={v.title} className="rounded-2xl border border-border/60 bg-card p-6">
-              <h3 className="font-display text-xl text-brown">{v.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{v.body}</p>
-            </div>
+          {values.map((v, i) => (
+            <Reveal key={v.title} delay={(Math.min(i, 4) * 100) as 0 | 100 | 200 | 300 | 400}>
+              <div className="rounded-2xl border border-border/60 bg-card p-6">
+                <h3 className="font-display text-xl text-brown">{v.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{v.body}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>
