@@ -4,13 +4,14 @@ import { Reveal } from "@/components/reveal";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
-    meta: [
-      { title: "About — Page Order" },
-      { name: "description", content: "Our story, leadership, goals and values behind Page Order." },
-    ],
-  }),
-  component: AboutPage,
-});
+  title: "About — Page Order",
+  meta: [
+    {
+      name: "description",
+      content: "Our story, leadership, goals and values behind Page Order.",
+    },
+  ],
+}),
 
 const goals = [
   "Reduce unnecessary food waste in local communities",
@@ -59,7 +60,6 @@ function AboutPage() {
               <h3 className="mt-4 font-display text-2xl text-brown">Reece Beaini</h3>
               <p className="text-sm text-muted-foreground">Executive President</p>
             </div>
-          </div>
           </div>
         </Reveal>
       </section>
