@@ -63,21 +63,31 @@ function AboutPage() {
         </Reveal>
       </section>
 
-      <section className="mx-auto max-w-5xl px-6 py-16">
-        <Reveal>
-          <h2 className="font-display text-3xl text-brown md:text-4xl">Our Goals</h2>
+<section className="mx-auto max-w-5xl px-6 py-16">
+  <Reveal>
+    <h2 className="font-display text-3xl text-brown md:text-4xl">
+      Our Goals
+    </h2>
+  </Reveal>
+
+  <ul className="mt-8 space-y-3">
+    {goals.map((g, i) => (
+      <li key={g}>
+        <Reveal
+          delay={(Math.min(i, 4) * 100) as 0 | 100 | 200 | 300 | 400}
+        >
+          <div className="flex items-start gap-4 rounded-2xl bg-cream-deep p-5">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brown font-display text-sm text-cream">
+              {i + 1}
+            </span>
+
+            <span className="text-foreground">{g}</span>
+          </div>
         </Reveal>
-        <ul className="mt-8 space-y-3">
-          {goals.map((g, i) => (
-            <Reveal key={g} delay={(Math.min(i, 4) * 100) as 0 | 100 | 200 | 300 | 400}>
-              <li className="flex items-start gap-4 rounded-2xl bg-cream-deep p-5">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brown font-display text-sm text-cream">{i + 1}</span>
-                <span className="text-foreground">{g}</span>
-              </li>
-            </Reveal>
-          ))}
-        </ul>
-      </section>
+      </li>
+    ))}
+  </ul>
+</section>
 
       <section className="mx-auto max-w-6xl px-6 py-16">
         <Reveal>
