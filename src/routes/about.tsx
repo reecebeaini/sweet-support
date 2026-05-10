@@ -58,6 +58,7 @@ function AboutPage() {
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-pastel font-display text-2xl text-brown">RB</div>
             <h3 className="mt-4 font-display text-2xl text-brown">Reece Beaini</h3>
             <p className="text-sm text-muted-foreground">Executive President</p>
+            </div>
           </div>
         </Reveal>
       </section>
