@@ -60,6 +60,7 @@ function AboutPage() {
               <p className="text-sm text-muted-foreground">Executive President</p>
             </div>
           </div>
+          </div>
         </Reveal>
       </section>
 
