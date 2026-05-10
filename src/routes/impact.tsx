@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Package, Truck, HandHeart } from "lucide-react";
+import { Reveal } from "@/components/reveal";
 
 export const Route = createFileRoute("/impact")({
   head: () => ({
@@ -39,17 +40,19 @@ function ImpactPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((s) => (
-            <div key={s.label} className="rounded-[2rem] bg-cream-deep p-8 text-center shadow-soft">
-              <div className="font-display text-5xl font-semibold text-brown md:text-6xl">{s.num}</div>
-              <div className="mt-3 text-xs uppercase tracking-wider text-muted-foreground">{s.label}</div>
-            </div>
+          {stats.map((s, i) => (
+            <Reveal key={s.label} delay={(Math.min(i, 3) * 100) as 0 | 100 | 200 | 300}>
+              <div className="rounded-[2rem] bg-cream-deep p-8 text-center shadow-soft">
+                <div className="font-display text-5xl font-semibold text-brown md:text-6xl">{s.num}</div>
+                <div className="mt-3 text-xs uppercase tracking-wider text-muted-foreground">{s.label}</div>
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-10 px-6 py-12 md:grid-cols-2">
-        <div className="rounded-[2rem] bg-pink-soft p-10">
+        <Reveal variant="left" className="rounded-[2rem] bg-pink-soft p-10">
           <h2 className="font-display text-3xl text-brown">Bakery Partners</h2>
           <ul className="mt-6 space-y-3">
             {bakeries.map((b) => (
@@ -59,8 +62,8 @@ function ImpactPage() {
               </li>
             ))}
           </ul>
-        </div>
-        <div className="rounded-[2rem] bg-orange-pastel/40 p-10">
+        </Reveal>
+        <Reveal variant="right" delay={100} className="rounded-[2rem] bg-orange-pastel/40 p-10">
           <h2 className="font-display text-3xl text-brown">Community Distribution Partners</h2>
           <ul className="mt-6 space-y-3">
             {partners.map((p) => (
@@ -70,19 +73,23 @@ function ImpactPage() {
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-20">
-        <h2 className="text-center font-display text-3xl text-brown md:text-5xl">How it works</h2>
+        <Reveal>
+          <h2 className="text-center font-display text-3xl text-brown md:text-5xl">How it works</h2>
+        </Reveal>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {steps.map((s, i) => (
-            <div key={s.title} className="relative rounded-[2rem] border border-border/60 bg-card p-8">
-              <div className="absolute -top-5 left-8 flex h-10 w-10 items-center justify-center rounded-full bg-brown font-display text-cream">{i + 1}</div>
-              <s.Icon className="mt-2 h-8 w-8 text-orange-pastel" />
-              <h3 className="mt-4 font-display text-xl text-brown">{s.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
-            </div>
+            <Reveal key={s.title} delay={(i * 100) as 0 | 100 | 200}>
+              <div className="relative rounded-[2rem] border border-border/60 bg-card p-8">
+                <div className="absolute -top-5 left-8 flex h-10 w-10 items-center justify-center rounded-full bg-brown font-display text-cream">{i + 1}</div>
+                <s.Icon className="mt-2 h-8 w-8 text-orange-pastel" />
+                <h3 className="mt-4 font-display text-xl text-brown">{s.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>
