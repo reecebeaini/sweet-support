@@ -23,7 +23,7 @@ function BakeriesPage() {
   return (
     <>
       <section className="bg-gradient-hero">
-        <div className="mx-auto max-w-4xl px-6 py-24 text-center" style={{animation: "fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both"}}>
+        <div className="mx-auto max-w-4xl px-6 py-24 text-center">
           <p style={{animation: "fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both"}} className="text-sm font-semibold uppercase tracking-[0.2em] text-brown-soft">Partner bakeries</p>
           <h1 style={{animation: "fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both"}} className="mt-4 font-display text-5xl text-brown md:text-6xl">The heart of our mission</h1>
           <p style={{animation: "fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both"}} className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
@@ -52,4 +52,17 @@ function BakeriesPage() {
         <Reveal variant="zoom">
           <div className="rounded-[2rem] bg-brown p-12 text-center text-cream">
             <h2 className="font-display text-3xl md:text-4xl">Run a bakery? Partner with us.</h2>
-            <p
+            <p className="mx-auto mt-4 max-w-xl text-cream/80">
+              Turn end-of-day surplus into community impact. We make the process simple, organized, and rewarding.
+            </p>
+            <Link to="/get-involved" className="mt-6 inline-block">
+              <Button size="lg" className="rounded-full bg-orange-pastel text-brown hover:bg-orange-pastel/90">
+                Become a Partner
+              </Button>
+            </Link>
+          </div>
+        </Reveal>
+      </section>
+    </>
+  );
+}
