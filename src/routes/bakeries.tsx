@@ -16,7 +16,7 @@ const bakeries = [
   { name: "Goody's Donuts", quote: "Partnering with Page Order means our daily surplus becomes a daily gift to the community." },
   { name: "K&T Donuts", quote: "It's incredible knowing our pastries reach families instead of the trash." },
   { name: "Yum Yum Donuts", quote: "A simple, organized program that genuinely makes a difference." },
-  { name: "Fresh Bagel and Cafe", quote: "Reducing waste while supporting neighbors — it's a win for everyone." },
+  { name: "Fresh Bagel and Cafe", quote: "Reducing waste while supporting neighbors - it's a win for everyone." },
 ];
 
 function BakeriesPage() {
@@ -41,7 +41,7 @@ function BakeriesPage() {
                   {b.name.charAt(0)}
                 </div>
                 <h3 className="mt-6 font-display text-2xl text-brown">{b.name}</h3>
-                <p className="mt-4 text-muted-foreground">"{b.quote}"</p>
+                <p className="mt-4 text-muted-foreground">{b.quote}</p>
               </div>
             </Reveal>
           ))}
