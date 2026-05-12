@@ -54,11 +54,16 @@ function AboutPage() {
         <Reveal>
           <h2 className="font-display text-3xl text-brown md:text-4xl">Leadership</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
-            <div className="rounded-2xl bg-cream-deep p-8 shadow-soft">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-pastel font-display text-2xl text-brown">RB</div>
-              <h3 className="mt-4 font-display text-2xl text-brown">Reece Beaini</h3>
-              <p className="text-sm text-muted-foreground">Executive President</p>
-            </div>
+           <div className="rounded-2xl bg-cream-deep p-8 shadow-soft">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-pastel font-display text-2xl text-brown">RB</div>
+            <h3 className="mt-4 font-display text-2xl text-brown">Reece Beaini</h3>
+            <p className="text-sm text-muted-foreground">Executive President</p>
+          </div>
+          <div className="rounded-2xl bg-cream-deep p-8 shadow-soft">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-pastel font-display text-2xl text-brown">MH</div>
+            <h3 className="mt-4 font-display text-2xl text-brown">Melody Hsiue</h3>
+            <p className="text-sm text-muted-foreground">Executive Vice President</p>
+          </div>
           </div>
         </Reveal>
       </section>
