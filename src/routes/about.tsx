@@ -19,6 +19,7 @@ const leaders = [
   { name: "Melody Hsiue", title: "Executive Vice President", img: melody, initials: "MH" },
   { name: "Senuka Jayasinghe", title: "Director of Outreach", img: null, initials: "SJ" },
   { name: "Faizula Abrar", title: "Director of Publicity", img: null, initials: "FA" },
+  { name: "Alexa Nohai", title: "Director of Publicity", img: null, initials: "AN" },
 ];
 
 const goals = [
