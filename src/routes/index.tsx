@@ -4,12 +4,11 @@ import { ArrowRight, Heart, Leaf, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
 import heroImg from "@/assets/hero-donuts.jpg";
-import communityImg from "@/assets/community.jpg";
-
+import donutImg from "@/assets/donut.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Page Order — Making a difference, one donut at a time" },
+      { title: "Zero Crumbs Initiative — Making a difference, one donut at a time" },
       { name: "description", content: "We rescue surplus donuts and pastries from local bakeries and redistribute them to communities in need." },
     ],
   }),
@@ -88,12 +87,12 @@ function Index() {
         </div>
       </section>
 
-      {/* Community */}
+      {/* Donut image */}
       <section className="mx-auto grid max-w-7xl items-center gap-12 px-6 pb-24 md:grid-cols-2">
         <Reveal variant="left">
           <img
-            src={communityImg}
-            alt="Volunteers receiving pastries"
+            src={donutImg}
+            alt="A delicious donut"
             loading="lazy"
             width={1400}
             height={1000}
