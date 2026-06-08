@@ -4,7 +4,7 @@ import { Mail, Phone, Instagram } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Page Order" },
+      { title: "Contact — Zero Crumbs Initiative" },
       { name: "description", content: "Get in touch with Page Order." },
     ],
   }),
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/contact")({
 const items = [
   { Icon: Mail, label: "Email", value: "zerocrumbsiniative@gmail.com", href: "mailto:zerocrumbsiniative@gmail.com" },
   { Icon: Phone, label: "Phone", value: "(562) 235-5520", href: "tel:5622355520" },
-  { Icon: Instagram, label: "Instagram", value: "@pageorder", href: "https://instagram.com" },
+  { Icon: Instagram, label: "Instagram", value: "@zerocrumbinitiative", href: "https://instagram.com/zerocrumbinitiative" },
 ];
 
 function ContactPage() {
