@@ -41,12 +41,15 @@ function AboutPage() {
   return (
     <>
       <section className="bg-gradient-hero">
-        <div className="mx-auto max-w-4xl px-6 py-24 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brown-soft">About us</p>
-          <h1 className="mt-4 font-display text-5xl text-brown md:text-6xl">Our story</h1>
-        </div>
-      </section>
-
+  <div className="mx-auto max-w-4xl px-6 py-24 text-center">
+    <Reveal>
+      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brown-soft">About us</p>
+    </Reveal>
+    <Reveal delay={100}>
+      <h1 className="mt-4 font-display text-5xl text-brown md:text-6xl">Our story</h1>
+    </Reveal>
+  </div>
+</section>
       <section className="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:grid-cols-5">
         <Reveal variant="left" className="md:col-span-3 space-y-6 text-lg text-muted-foreground">
           <p>Our organization started with a simple realization: thousands of perfectly good donuts and pastries are thrown away every day while many people in local communities continue to face food insecurity.</p>
