@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import donutsBox from "@/assets/donuts-box.jpg";
 import reece from "@/assets/reece.png";
-import melody from "@/assets/melody.jpg";
+import melody from "@/assets/melody.png";
 import { Reveal } from "@/components/reveal";
 
 export const Route = createFileRoute("/about")({
