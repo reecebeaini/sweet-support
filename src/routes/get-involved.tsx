@@ -12,7 +12,7 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/get-involved")({
   head: () => ({
     meta: [
-      { title: "Get Involved — Page Order" },
+      { title: "Get Involved — Zero Crumbs Initiative" },
       { name: "description", content: "Volunteer with us or partner your bakery to reduce food waste." },
     ],
   }),
@@ -39,14 +39,27 @@ function CheckboxGroup({ label, options, name }: { label: string; options: strin
 
 function VolunteerForm() {
   const [submitting, setSubmitting] = useState(false);
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
+    const data = new FormData(e.target as HTMLFormElement);
+    try {
+      const res = await fetch("https://formspree.io/f/mrevqbrl", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        toast.success("Thanks for volunteering! We'll be in touch soon.");
+        (e.target as HTMLFormElement).reset();
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
       setSubmitting(false);
-      toast.success("Thanks for volunteering! We'll be in touch soon.");
-      (e.target as HTMLFormElement).reset();
-    }, 600);
+    }
   };
   return (
     <form onSubmit={onSubmit} className="space-y-10">
@@ -57,12 +70,12 @@ function VolunteerForm() {
       <fieldset className="space-y-4">
         <legend className="font-display text-2xl text-brown">Personal Information</legend>
         <div className="grid gap-4 sm:grid-cols-2">
-          <div><Label>Full Name *</Label><Input required /></div>
-          <div><Label>Preferred Name</Label><Input /></div>
-          <div><Label>Date of Birth *</Label><Input type="date" required /></div>
-          <div><Label>Email *</Label><Input type="email" required /></div>
-          <div><Label>Phone *</Label><Input type="tel" required /></div>
-          <div><Label>School / Organization</Label><Input /></div>
+          <div><Label>Full Name *</Label><Input name="fullName" required /></div>
+          <div><Label>Preferred Name</Label><Input name="preferredName" /></div>
+          <div><Label>Date of Birth *</Label><Input name="dob" type="date" required /></div>
+          <div><Label>Email *</Label><Input name="email" type="email" required /></div>
+          <div><Label>Phone *</Label><Input name="phone" type="tel" required /></div>
+          <div><Label>School / Organization</Label><Input name="school" /></div>
         </div>
       </fieldset>
 
@@ -81,7 +94,7 @@ function VolunteerForm() {
         <legend className="font-display text-2xl text-brown">Transportation</legend>
         <div>
           <Label className="mb-2 block">Reliable transportation?</Label>
-          <RadioGroup defaultValue="" className="flex gap-4">
+          <RadioGroup defaultValue="" name="transportation" className="flex gap-4">
             {["Yes", "No", "Sometimes"].map((v) => (
               <label key={v} className="flex items-center gap-2"><RadioGroupItem value={v} />{v}</label>
             ))}
@@ -89,7 +102,7 @@ function VolunteerForm() {
         </div>
         <div>
           <Label className="mb-2 block">Comfortable with pickups/deliveries?</Label>
-          <RadioGroup className="flex gap-4">
+          <RadioGroup name="pickupComfort" className="flex gap-4">
             {["Yes", "No"].map((v) => (
               <label key={v} className="flex items-center gap-2"><RadioGroupItem value={v} />{v}</label>
             ))}
@@ -101,30 +114,30 @@ function VolunteerForm() {
         <legend className="font-display text-2xl text-brown">Community Service Hours</legend>
         <div>
           <Label className="mb-2 block">Need verified hours?</Label>
-          <RadioGroup className="flex gap-4">
+          <RadioGroup name="needHours" className="flex gap-4">
             {["Yes", "No"].map((v) => (
               <label key={v} className="flex items-center gap-2"><RadioGroupItem value={v} />{v}</label>
             ))}
           </RadioGroup>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <div><Label>School Name</Label><Input /></div>
-          <div><Label>Hours Needed</Label><Input type="number" min={0} /></div>
+          <div><Label>School Name</Label><Input name="schoolName" /></div>
+          <div><Label>Hours Needed</Label><Input name="hoursNeeded" type="number" min={0} /></div>
         </div>
       </fieldset>
 
       <fieldset className="space-y-4">
         <legend className="font-display text-2xl text-brown">Emergency Contact</legend>
         <div className="grid gap-4 sm:grid-cols-3">
-          <div><Label>Name</Label><Input /></div>
-          <div><Label>Phone</Label><Input type="tel" /></div>
-          <div><Label>Relationship</Label><Input /></div>
+          <div><Label>Name</Label><Input name="emergencyName" /></div>
+          <div><Label>Phone</Label><Input name="emergencyPhone" type="tel" /></div>
+          <div><Label>Relationship</Label><Input name="emergencyRelationship" /></div>
         </div>
       </fieldset>
 
       <fieldset className="space-y-4">
         <legend className="font-display text-2xl text-brown">Additional Information</legend>
-        <Textarea placeholder="Questions, accommodations, or notes..." rows={4} />
+        <Textarea name="notes" placeholder="Questions, accommodations, or notes..." rows={4} />
       </fieldset>
 
       <fieldset className="space-y-3">
@@ -148,14 +161,27 @@ function VolunteerForm() {
 
 function PartnerForm() {
   const [submitting, setSubmitting] = useState(false);
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
+    const data = new FormData(e.target as HTMLFormElement);
+    try {
+      const res = await fetch("https://formspree.io/f/mnjydnlg", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        toast.success("Thank you! We'll reach out about partnership soon.");
+        (e.target as HTMLFormElement).reset();
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
       setSubmitting(false);
-      toast.success("Thank you! We'll reach out about partnership soon.");
-      (e.target as HTMLFormElement).reset();
-    }, 600);
+    }
   };
   return (
     <form onSubmit={onSubmit} className="space-y-10">
@@ -166,13 +192,13 @@ function PartnerForm() {
       <fieldset className="space-y-4">
         <legend className="font-display text-2xl text-brown">Business Information</legend>
         <div className="grid gap-4 sm:grid-cols-2">
-          <div><Label>Business Name *</Label><Input required /></div>
-          <div><Label>Business Type</Label><Input /></div>
-          <div><Label>Contact Person *</Label><Input required /></div>
-          <div><Label>Position / Role</Label><Input /></div>
-          <div><Label>Email *</Label><Input type="email" required /></div>
-          <div><Label>Phone *</Label><Input type="tel" required /></div>
-          <div className="sm:col-span-2"><Label>Business Address</Label><Input /></div>
+          <div><Label>Business Name *</Label><Input name="businessName" required /></div>
+          <div><Label>Business Type</Label><Input name="businessType" /></div>
+          <div><Label>Contact Person *</Label><Input name="contactPerson" required /></div>
+          <div><Label>Position / Role</Label><Input name="role" /></div>
+          <div><Label>Email *</Label><Input name="email" type="email" required /></div>
+          <div><Label>Phone *</Label><Input name="phone" type="tel" required /></div>
+          <div className="sm:col-span-2"><Label>Business Address</Label><Input name="address" /></div>
         </div>
       </fieldset>
 
@@ -181,7 +207,7 @@ function PartnerForm() {
         <CheckboxGroup label="Items interested in donating" options={["Donuts", "Pastries", "Bagels", "Bread", "Other Baked Goods"]} name="items" />
         <div>
           <Label className="mb-2 block">Donation frequency</Label>
-          <RadioGroup className="flex flex-wrap gap-4">
+          <RadioGroup name="frequency" className="flex flex-wrap gap-4">
             {["Daily", "Several Times Per Week", "Weekly", "Occasionally"].map((v) => (
               <label key={v} className="flex items-center gap-2"><RadioGroupItem value={v} />{v}</label>
             ))}
@@ -189,7 +215,7 @@ function PartnerForm() {
         </div>
         <div>
           <Label className="mb-2 block">Estimated quantity per donation</Label>
-          <RadioGroup className="flex flex-wrap gap-4">
+          <RadioGroup name="quantity" className="flex flex-wrap gap-4">
             {["Under 25", "25–50", "50–100", "100+"].map((v) => (
               <label key={v} className="flex items-center gap-2"><RadioGroupItem value={v} />{v}</label>
             ))}
@@ -203,7 +229,7 @@ function PartnerForm() {
         <CheckboxGroup label="Preferred pickup time" options={["Morning", "Afternoon", "Evening", "End of Business Day"]} name="pickupTime" />
         <div>
           <Label className="mb-2 block">Recurring pickups?</Label>
-          <RadioGroup className="flex gap-4">
+          <RadioGroup name="recurring" className="flex gap-4">
             {["Yes", "No", "Unsure"].map((v) => (
               <label key={v} className="flex items-center gap-2"><RadioGroupItem value={v} />{v}</label>
             ))}
@@ -222,7 +248,7 @@ function PartnerForm() {
 
       <fieldset className="space-y-4">
         <legend className="font-display text-2xl text-brown">Additional Information</legend>
-        <Textarea placeholder="Questions, special pickup instructions..." rows={4} />
+        <Textarea name="notes" placeholder="Questions, special pickup instructions..." rows={4} />
       </fieldset>
 
       <fieldset className="space-y-3">
