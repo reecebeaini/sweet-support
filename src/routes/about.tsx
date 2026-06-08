@@ -1,16 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
 import donutsBox from "@/assets/donuts-box.jpg";
+import reece from "@/assets/reece.png";
+import melody from "@/assets/melody.jpg";
 import { Reveal } from "@/components/reveal";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Page Order" },
-      { name: "description", content: "Our story, leadership, goals and values behind Page Order." },
+      { title: "About — Zero Crumbs Initiative" },
+      { name: "description", content: "Our story, leadership, goals and values." },
     ],
   }),
   component: AboutPage,
 });
+
+const leaders = [
+  { name: "Reece Beaini", title: "Executive President", img: reece, initials: "RB" },
+  { name: "Melody Hsiue", title: "Executive Vice President", img: melody, initials: "MH" },
+  { name: "Senuka Jayasinghe", title: "Director of Outreach", img: null, initials: "SJ" },
+  { name: "Faizula Abrar", title: "Director of Publicity", img: null, initials: "FA" },
+];
 
 const goals = [
   "Reduce unnecessary food waste in local communities",
@@ -53,17 +62,24 @@ function AboutPage() {
       <section className="mx-auto max-w-5xl px-6 py-12">
         <Reveal>
           <h2 className="font-display text-3xl text-brown md:text-4xl">Leadership</h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
-           <div className="rounded-2xl bg-cream-deep p-8 shadow-soft">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-pastel font-display text-2xl text-brown">RB</div>
-            <h3 className="mt-4 font-display text-2xl text-brown">Reece Beaini</h3>
-            <p className="text-sm text-muted-foreground">Executive President</p>
-          </div>
-          <div className="rounded-2xl bg-cream-deep p-8 shadow-soft">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-pastel font-display text-2xl text-brown">MH</div>
-            <h3 className="mt-4 font-display text-2xl text-brown">Melody Hsiue</h3>
-            <p className="text-sm text-muted-foreground">Executive Vice President</p>
-          </div>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {leaders.map((person) => (
+              <div key={person.name} className="rounded-2xl bg-cream-deep p-6 shadow-soft flex flex-col items-center text-center">
+                {person.img ? (
+                  <img
+                    src={person.img}
+                    alt={person.name}
+                    className="h-20 w-20 rounded-full object-cover object-top shadow-soft"
+                  />
+                ) : (
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-pastel font-display text-2xl text-brown">
+                    {person.initials}
+                  </div>
+                )}
+                <h3 className="mt-4 font-display text-xl text-brown">{person.name}</h3>
+                <p className="text-sm text-muted-foreground">{person.title}</p>
+              </div>
+            ))}
           </div>
         </Reveal>
       </section>
