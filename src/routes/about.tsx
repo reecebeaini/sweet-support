@@ -62,20 +62,20 @@ function AboutPage() {
         </Reveal>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 py-12">
+      <section className="mx-auto max-w-5xl px-6 py-12">
         <Reveal>
           <h2 className="font-display text-3xl text-brown md:text-4xl">Leadership</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
             {leaders.map((person) => (
-              <div key={person.name} className="rounded-2xl bg-cream-deep p-8 shadow-soft flex flex-col items-center text-center">
+              <div key={person.name} className="rounded-2xl bg-cream-deep p-10 shadow-soft flex flex-col items-center text-center">
                 {person.img ? (
                   <img
                     src={person.img}
                     alt={person.name}
-                    className="h-36 w-36 rounded-full object-cover object-top shadow-soft"
+                    className="h-48 w-48 rounded-full object-cover object-top shadow-soft"
                   />
                 ) : (
-                  <div className="flex h-36 w-36 items-center justify-center rounded-full bg-orange-pastel font-display text-3xl text-brown">
+                  <div className="flex h-48 w-48 items-center justify-center rounded-full bg-orange-pastel font-display text-3xl text-brown">
                     {person.initials}
                   </div>
                 )}
