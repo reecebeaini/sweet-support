@@ -13,10 +13,11 @@ export const Route = createFileRoute("/bakeries")({
 });
 
 const bakeries = [
-  { name: "Goody's Donuts" },
-  { name: "K&T Donuts" },
-  { name: "Yum Yum Donuts" },
-  { name: "Fresh Bagel and Cafe" },
+  { name: "Goody's Donuts", address: "13301 Artesia Blvd, Cerritos, CA 90703" },
+  { name: "K&T Donuts", address: "15747 Imperial Hwy., La Mirada, CA 90638" },
+  { name: "Yum Yum Donuts", address: "5454 Orangethorpe Ave, La Palma, CA 90623" },
+  { name: "Fresh Bagel and Cafe", address: "6011 Lincoln Ave, Buena Park, CA 90620" },
+  { name: "DK's Donuts", address: "12549 Alondra Blvd, Norwalk, CA 90650" },
 ];
 
 function BakeriesPage() {
@@ -33,7 +34,7 @@ function BakeriesPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-20">
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {bakeries.map((b, i) => (
             <Reveal key={b.name} delay={(Math.min(i, 3) * 100) as 0 | 100 | 200 | 300}>
               <div className="flex flex-col items-center rounded-2xl bg-cream-deep p-6 text-center shadow-soft">
@@ -41,6 +42,7 @@ function BakeriesPage() {
                   {b.name.charAt(0)}
                 </div>
                 <h3 className="mt-4 font-display text-base text-brown">{b.name}</h3>
+                <p className="mt-1 text-xs text-muted-foreground">{b.address}</p>
               </div>
             </Reveal>
           ))}
