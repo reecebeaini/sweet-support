@@ -15,7 +15,7 @@ export const Route = createFileRoute("/start-a-chapter")({
 });
 
 // TODO: replace with your real Formspree endpoint from https://formspree.io
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xlgyaqel";
 
 const perks = [
   {
