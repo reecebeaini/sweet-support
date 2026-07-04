@@ -74,10 +74,10 @@ function Index() {
       <section className="mx-auto max-w-7xl px-6 pb-24">
         <div className="grid gap-6 rounded-[2rem] bg-cream-deep p-8 md:grid-cols-3 md:p-14">
           {[
-            { num: "18,000+", label: "Donuts Rescued", Icon: Heart },
-            { num: "4", label: "Bakery Partners", Icon: Leaf },
-            { num: "3", label: "Community Distribution Partners", Icon: Users },
-          ].map(({ num, label, Icon }, i) => (
+  { num: "19,000+", label: "Donuts Rescued", Icon: Heart },
+  { num: "5", label: "Bakery Partners", Icon: Leaf },
+  { num: "3", label: "Community Distribution Partners", Icon: Users },
+].map(({ num, label, Icon }, i) => (
             <Reveal key={label} delay={(i * 100) as 0 | 100 | 200} className="text-center md:text-left">
               <Icon className="mx-auto h-8 w-8 text-orange-pastel md:mx-0" />
               <div className="mt-4 font-display text-6xl font-semibold text-brown md:text-7xl">{num}</div>
