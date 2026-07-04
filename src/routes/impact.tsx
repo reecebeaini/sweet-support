@@ -6,20 +6,20 @@ export const Route = createFileRoute("/impact")({
   head: () => ({
     meta: [
       { title: "Impact — Page Order" },
-      { name: "description", content: "18,000+ donuts rescued, 3,375 pounds of food saved, and counting." },
+      { name: "description", content: "19,000+ donuts rescued, 3,563 pounds of food saved, and counting." },
     ],
   }),
   component: ImpactPage,
 });
 
 const stats = [
-  { num: "18,000+", label: "Donuts Rescued" },
-  { num: "3,375", label: "Pounds of Food Saved" },
-  { num: "4", label: "Bakery Partners" },
+  { num: "19,000+", label: "Donuts Rescued" },
+  { num: "3,563", label: "Pounds of Food Saved" },
+  { num: "5", label: "Bakery Partners" },
   { num: "3", label: "Community Partners" },
 ];
 
-const bakeries = ["Goody's Donuts", "K&T Donuts", "Yum Yum Donuts", "Fresh Bagel and Cafe"];
+const bakeries = ["Goody's Donuts", "K&T Donuts", "Yum Yum Donuts", "Fresh Bagel and Cafe", "DK's Donuts"];
 const partners = ["Hawaiian Gardens Food Bank", "New Life Community Church", "Project Coffee Cup"];
 
 const steps = [
