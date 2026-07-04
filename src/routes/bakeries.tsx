@@ -13,10 +13,10 @@ export const Route = createFileRoute("/bakeries")({
 });
 
 const bakeries = [
-  { name: "Goody's Donuts", quote: "Partnering with Page Order means our daily surplus becomes a daily gift to the community." },
-  { name: "K&T Donuts", quote: "It's incredible knowing our pastries reach families instead of the trash." },
-  { name: "Yum Yum Donuts", quote: "A simple, organized program that genuinely makes a difference." },
-  { name: "Fresh Bagel and Cafe", quote: "Reducing waste while supporting neighbors - it's a win for everyone." },
+  { name: "Goody's Donuts" },
+  { name: "K&T Donuts" },
+  { name: "Yum Yum Donuts" },
+  { name: "Fresh Bagel and Cafe" },
 ];
 
 function BakeriesPage() {
@@ -33,15 +33,14 @@ function BakeriesPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-20">
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
           {bakeries.map((b, i) => (
             <Reveal key={b.name} delay={(Math.min(i, 3) * 100) as 0 | 100 | 200 | 300}>
-              <div className="rounded-[2rem] bg-cream-deep p-10 shadow-soft">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-pastel font-display text-3xl text-brown">
+              <div className="flex flex-col items-center rounded-2xl bg-cream-deep p-6 text-center shadow-soft">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-pastel font-display text-xl text-brown">
                   {b.name.charAt(0)}
                 </div>
-                <h3 className="mt-6 font-display text-2xl text-brown">{b.name}</h3>
-                <p className="mt-4 text-muted-foreground">{b.quote}</p>
+                <h3 className="mt-4 font-display text-base text-brown">{b.name}</h3>
               </div>
             </Reveal>
           ))}
