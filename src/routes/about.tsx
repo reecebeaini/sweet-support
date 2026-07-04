@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import donutsBox from "@/assets/donuts-box.jpg";
 import reece from "@/assets/reece.png";
 import melody from "@/assets/melody.png";
+import senuka from "@/assets/senuka.jpg";
+import faizula from "@/assets/faizula.png";
+import alexa from "@/assets/alexa.png";
 import { Reveal } from "@/components/reveal";
 
 export const Route = createFileRoute("/about")({
@@ -17,9 +20,9 @@ export const Route = createFileRoute("/about")({
 const leaders = [
   { name: "Reece Beaini", title: "Executive President", img: reece, initials: "RB" },
   { name: "Melody Hsiue", title: "Executive Vice President", img: melody, initials: "MH" },
-  { name: "Senuka Jayasinghe", title: "Director of Outreach", img: null, initials: "SJ" },
-  { name: "Faizula Abrar", title: "Director of Publicity", img: null, initials: "FA" },
-  { name: "Alexa Nohai", title: "Director of Publicity", img: null, initials: "AN" },
+  { name: "Senuka Jayasinghe", title: "Director of Outreach", img: senuka, initials: "SJ" },
+  { name: "Faizula Abrar", title: "Director of Publicity", img: faizula, initials: "FA" },
+  { name: "Alexa Nohai", title: "Director of Publicity", img: alexa, initials: "AN" },
 ];
 
 const goals = [
