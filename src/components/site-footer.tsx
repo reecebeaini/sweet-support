@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, Mail } from "lucide-react";
-
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border/60 bg-cream-deep">
@@ -25,7 +24,7 @@ export function SiteFooter() {
           <div>
             <h4 className="text-sm font-semibold text-brown">Connect</h4>
             <div className="mt-3 flex gap-3">
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="flex h-10 w-10 items-center justify-center rounded-full bg-cream text-brown shadow-soft transition hover:bg-orange-pastel">
+              <a href="https://instagram.com/zerocrumbinitiative" target="_blank" rel="noreferrer" aria-label="Instagram" className="flex h-10 w-10 items-center justify-center rounded-full bg-cream text-brown shadow-soft transition hover:bg-orange-pastel">
                 <Instagram className="h-4 w-4" />
               </a>
               <a href="mailto:zerocrumbsiniative@gmail.com" aria-label="Email" className="flex h-10 w-10 items-center justify-center rounded-full bg-cream text-brown shadow-soft transition hover:bg-orange-pastel">
