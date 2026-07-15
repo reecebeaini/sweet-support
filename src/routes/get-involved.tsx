@@ -21,17 +21,77 @@ export const Route = createFileRoute("/get-involved")({
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-function CheckboxGroup({ label, options, name }: { label: string; options: string[]; name: string }) {
+const VIRTUAL_MEDIA_VALUE = "Virtual Media Team (Instagram Reels)";
+
+const opportunityOptions = [
+  {
+    value: "Bakery Pickups",
+    description: "Pick up surplus pastries and baked goods from partner bakeries and deliver them to distribution points. Requires reliable transportation.",
+  },
+  {
+    value: "Food Packaging",
+    description: "Sort and pack rescued food into distribution-ready portions at packaging events. No transportation needed.",
+  },
+  {
+    value: "Distribution Support",
+    description: "Help hand out packaged food to community members at distribution sites and local events.",
+  },
+  {
+    value: "Social Media & Marketing",
+    description: "Support ZCI's online presence by helping plan posts, design graphics, or manage our social accounts.",
+  },
+  {
+    value: VIRTUAL_MEDIA_VALUE,
+    description: "Create original Instagram Reels — food waste facts, recruitment videos, impact stories, or reels using ZCI-provided footage. Fully remote; no pickups or events required. Submissions are reviewed by a ZCI officer before hours are approved.",
+  },
+];
+
+type Option = string | { value: string; description?: string };
+
+function CheckboxGroup({
+  label,
+  options,
+  name,
+  selected,
+  onToggle,
+}: {
+  label: string;
+  options: Option[];
+  name: string;
+  selected?: string[];
+  onToggle?: (value: string, checked: boolean) => void;
+}) {
+  const isControlled = selected !== undefined;
   return (
     <div>
       <Label className="mb-3 block text-sm font-semibold text-brown">{label}</Label>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-        {options.map((o) => (
-          <label key={o} className="flex items-center gap-2 rounded-lg border border-border bg-card p-3 cursor-pointer hover:border-brown/40">
-            <Checkbox name={name} value={o} />
-            <span className="text-sm">{o}</span>
-          </label>
-        ))}
+      <div className="grid gap-3 sm:grid-cols-2">
+        {options.map((opt) => {
+          const value = typeof opt === "string" ? opt : opt.value;
+          const description = typeof opt === "string" ? undefined : opt.description;
+          return (
+            <label
+              key={value}
+              className="flex items-start gap-3 rounded-lg border border-border bg-card p-3 cursor-pointer hover:border-brown/40"
+            >
+              <Checkbox
+                name={name}
+                value={value}
+                className="mt-0.5"
+                checked={isControlled ? selected!.includes(value) : undefined}
+                onCheckedChange={
+                  isControlled ? (checked) => onToggle?.(value, checked === true) : undefined
+                }
+              />
+              <span className="text-sm">
+                <span className="block font-medium">{value}</span>
+                {description && (
+                  <span className="mt-0.5 block text-xs text-muted-foreground">{description}</span>
+                )}
+              </span>
+            </label>
+          );
+        })}
       </div>
     </div>
   );
@@ -39,6 +99,15 @@ function CheckboxGroup({ label, options, name }: { label: string; options: strin
 
 function VolunteerForm() {
   const [submitting, setSubmitting] = useState(false);
+  const [interests, setInterests] = useState<string[]>([]);
+
+  const isVirtualMediaSelected = interests.includes(VIRTUAL_MEDIA_VALUE);
+  const onlyVirtualMediaSelected = interests.length > 0 && interests.every((i) => i === VIRTUAL_MEDIA_VALUE);
+
+  const toggleInterest = (value: string, checked: boolean) => {
+    setInterests((prev) => (checked ? [...prev, value] : prev.filter((v) => v !== value)));
+  };
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
@@ -52,6 +121,7 @@ function VolunteerForm() {
       if (res.ok) {
         toast.success("Thanks for volunteering! We'll be in touch soon.");
         (e.target as HTMLFormElement).reset();
+        setInterests([]);
       } else {
         toast.error("Something went wrong. Please try again.");
       }
@@ -61,10 +131,11 @@ function VolunteerForm() {
       setSubmitting(false);
     }
   };
+
   return (
     <form onSubmit={onSubmit} className="space-y-10">
       <p className="text-muted-foreground">
-        Thank you for your interest in helping reduce food waste and support local communities. Volunteers may assist with bakery pickups, food packaging, distribution, outreach, and community events. Community service hours are available.
+        Thank you for your interest in helping reduce food waste and support local communities. Volunteers may assist with bakery pickups, food packaging, distribution, outreach, community events, and content creation through our Virtual Media Team. Community service hours are available.
       </p>
 
       <fieldset className="space-y-4">
@@ -80,35 +151,82 @@ function VolunteerForm() {
       </fieldset>
 
       <fieldset className="space-y-4">
-        <legend className="font-display text-2xl text-brown">Availability</legend>
-        <CheckboxGroup label="Days available" options={days} name="days" />
-        <CheckboxGroup label="Preferred times" options={["Morning", "Afternoon", "Evening"]} name="times" />
-      </fieldset>
-
-      <fieldset className="space-y-4">
         <legend className="font-display text-2xl text-brown">Volunteer Interests</legend>
-        <CheckboxGroup label="Opportunities" options={["Bakery Pickups", "Food Packaging", "Distribution Support", "Social Media & Marketing"]} name="interests" />
+        <CheckboxGroup
+          label="Opportunities"
+          options={opportunityOptions}
+          name="interests"
+          selected={interests}
+          onToggle={toggleInterest}
+        />
       </fieldset>
 
-      <fieldset className="space-y-4">
-        <legend className="font-display text-2xl text-brown">Transportation</legend>
-        <div>
-          <Label className="mb-2 block">Reliable transportation?</Label>
-          <RadioGroup defaultValue="" name="transportation" className="flex gap-4">
-            {["Yes", "No", "Sometimes"].map((v) => (
-              <label key={v} className="flex items-center gap-2"><RadioGroupItem value={v} />{v}</label>
-            ))}
-          </RadioGroup>
-        </div>
-        <div>
-          <Label className="mb-2 block">Comfortable with pickups/deliveries?</Label>
-          <RadioGroup name="pickupComfort" className="flex gap-4">
-            {["Yes", "No"].map((v) => (
-              <label key={v} className="flex items-center gap-2"><RadioGroupItem value={v} />{v}</label>
-            ))}
-          </RadioGroup>
-        </div>
-      </fieldset>
+      {isVirtualMediaSelected && (
+        <fieldset className="space-y-4 rounded-2xl border border-border bg-cream-deep/40 p-6">
+          <legend className="font-display text-2xl text-brown px-2">Virtual Media Team</legend>
+          <p className="text-sm text-muted-foreground">
+            The Virtual Media Team lets you earn community service hours by creating original Instagram Reels that
+            promote ZCI's mission — food waste facts, recruitment videos, impact stories, or reels using
+            ZCI-provided footage. Every submission is reviewed by a ZCI officer for quality and relevance before
+            hours are approved.
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div><Label>Instagram Handle</Label><Input name="instagramHandle" placeholder="Optional — for credit/tagging" /></div>
+            <div><Label>Estimated Reels per Month</Label><Input name="reelsPerMonth" type="number" min={0} /></div>
+          </div>
+          <div>
+            <Label className="mb-2 block">Have you created Reels or short-form video before?</Label>
+            <RadioGroup name="videoExperience" className="flex gap-4">
+              {["Yes", "No"].map((v) => (
+                <label key={v} className="flex items-center gap-2"><RadioGroupItem value={v} />{v}</label>
+              ))}
+            </RadioGroup>
+          </div>
+          <CheckboxGroup
+            label="Content type interest"
+            options={["Educational Facts", "Recruitment/Promo", "Impact Stories", "Using ZCI-Provided Footage", "Open to Any"]}
+            name="contentTypes"
+          />
+          <div>
+            <Label className="mb-2 block">Do you need ZCI-provided footage or B-roll?</Label>
+            <RadioGroup name="needsFootage" className="flex gap-4">
+              {["Yes", "No"].map((v) => (
+                <label key={v} className="flex items-center gap-2"><RadioGroupItem value={v} />{v}</label>
+              ))}
+            </RadioGroup>
+          </div>
+        </fieldset>
+      )}
+
+      {!onlyVirtualMediaSelected && (
+        <>
+          <fieldset className="space-y-4">
+            <legend className="font-display text-2xl text-brown">Availability</legend>
+            <CheckboxGroup label="Days available" options={days} name="days" />
+            <CheckboxGroup label="Preferred times" options={["Morning", "Afternoon", "Evening"]} name="times" />
+          </fieldset>
+
+          <fieldset className="space-y-4">
+            <legend className="font-display text-2xl text-brown">Transportation</legend>
+            <div>
+              <Label className="mb-2 block">Reliable transportation?</Label>
+              <RadioGroup defaultValue="" name="transportation" className="flex gap-4">
+                {["Yes", "No", "Sometimes"].map((v) => (
+                  <label key={v} className="flex items-center gap-2"><RadioGroupItem value={v} />{v}</label>
+                ))}
+              </RadioGroup>
+            </div>
+            <div>
+              <Label className="mb-2 block">Comfortable with pickups/deliveries?</Label>
+              <RadioGroup name="pickupComfort" className="flex gap-4">
+                {["Yes", "No"].map((v) => (
+                  <label key={v} className="flex items-center gap-2"><RadioGroupItem value={v} />{v}</label>
+                ))}
+              </RadioGroup>
+            </div>
+          </fieldset>
+        </>
+      )}
 
       <fieldset className="space-y-4">
         <legend className="font-display text-2xl text-brown">Community Service Hours</legend>
@@ -124,6 +242,12 @@ function VolunteerForm() {
           <div><Label>School Name</Label><Input name="schoolName" /></div>
           <div><Label>Hours Needed</Label><Input name="hoursNeeded" type="number" min={0} /></div>
         </div>
+        {isVirtualMediaSelected && (
+          <p className="text-xs text-muted-foreground">
+            Note: Virtual Media Team hours are earned per approved submission, not by shift. A ZCI officer will
+            confirm your hour count once your Reel is reviewed.
+          </p>
+        )}
       </fieldset>
 
       <fieldset className="space-y-4">
@@ -142,10 +266,18 @@ function VolunteerForm() {
 
       <fieldset className="space-y-3">
         <legend className="font-display text-2xl text-brown">Agreement</legend>
-        <label className="flex items-start gap-3 text-sm">
-          <Checkbox required className="mt-1" />
-          <span>I understand volunteering may involve food handling, lifting donation boxes, transportation assistance, and community outreach.</span>
-        </label>
+        {!onlyVirtualMediaSelected && (
+          <label className="flex items-start gap-3 text-sm">
+            <Checkbox required className="mt-1" />
+            <span>I understand volunteering may involve food handling, lifting donation boxes, transportation assistance, and community outreach.</span>
+          </label>
+        )}
+        {isVirtualMediaSelected && (
+          <label className="flex items-start gap-3 text-sm">
+            <Checkbox required className="mt-1" />
+            <span>I understand that Virtual Media Team submissions are subject to officer review, and service hours are only granted for approved content that meets ZCI's quality and messaging standards.</span>
+          </label>
+        )}
         <label className="flex items-start gap-3 text-sm">
           <Checkbox required className="mt-1" />
           <span>I agree to communicate professionally and represent the organization respectfully.</span>
