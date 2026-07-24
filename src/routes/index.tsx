@@ -10,6 +10,12 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "Zero Crumbs Initiative — Making a difference, one donut at a time" },
       { name: "description", content: "We rescue surplus donuts and pastries from local bakeries and redistribute them to communities in need." },
+      { property: "og:title", content: "Zero Crumbs Initiative — Making a difference, one donut at a time" },
+      { property: "og:description", content: "We rescue surplus pastries from local bakeries and deliver them to people in need — fighting food waste and feeding communities." },
+      { property: "og:image", content: "https://zerocrumbsinitiative.org/og-image.jpeg" },
+      { property: "og:url", content: "https://zerocrumbsinitiative.org" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
