@@ -49,8 +49,11 @@ function BakeriesPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-6 pb-24">
-        <Reveal variant="zoom">
+<section className="mx-auto max-w-6xl px-6 py-8 text-center">
+        <p className="text-muted-foreground">...and 82 more bakery partners across the community.</p>
+      </section>
+
+      <section className="mx-auto max-w-4xl px-6 pb-24">        <Reveal variant="zoom">
           <div className="rounded-[2rem] bg-brown p-12 text-center text-cream">
             <h2 className="font-display text-3xl md:text-4xl">Run a bakery? Partner with us.</h2>
             <p className="mx-auto mt-4 max-w-xl text-cream/80">
