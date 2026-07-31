@@ -19,8 +19,8 @@ const stats = [
   { num: "38", label: "Community Partners" },
 ];
 
-const bakeries = ["Goody's Donuts", "K&T Donuts", "Yum Yum Donuts", "Fresh Bagel and Cafe", "DK's Donuts"];
-const partners = ["Hawaiian Gardens Food Bank", "New Life Community Church", "Project Coffee Cup"];
+const bakeries = ["Goody's Donuts", "K&T Donuts", "Yum Yum Donuts", "Fresh Bagel and Cafe", "and 82 more bakeries across the community"];
+const partners = ["Hawaiian Gardens Food Bank", "New Life Community Church", "Project Coffee Cup", "and 35 more partners"];
 
 const steps = [
   { Icon: Package, title: "Bakeries set aside surplus food", body: "At the end of the day, participating bakeries set aside unsold donuts and pastries that would otherwise go to waste." },
