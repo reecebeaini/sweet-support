@@ -6,6 +6,7 @@ import senuka from "@/assets/senuka.jpg";
 import faizula from "@/assets/faizula.png";
 import alexa from "@/assets/alexa.png";
 import { Reveal } from "@/components/reveal";
+import { PageHero } from "@/components/page-hero";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -34,72 +35,120 @@ const goals = [
 ];
 
 const values = [
-  { title: "Community", body: "Strong communities are built when people support one another through meaningful action." },
-  { title: "Sustainability", body: "We give surplus food a second purpose instead of allowing it to be discarded." },
-  { title: "Compassion", body: "Every donation represents care, dignity, and support for people facing food insecurity." },
-  { title: "Collaboration", body: "Bakeries, shelters, churches, and volunteers create a greater collective impact." },
-  { title: "Responsibility", body: "We operate transparently, professionally, and with a genuine commitment to helping others." },
+  {
+    title: "Community",
+    body: "Strong communities are built when people support one another through meaningful action.",
+  },
+  {
+    title: "Sustainability",
+    body: "We give surplus food a second purpose instead of allowing it to be discarded.",
+  },
+  {
+    title: "Compassion",
+    body: "Every donation represents care, dignity, and support for people facing food insecurity.",
+  },
+  {
+    title: "Collaboration",
+    body: "Bakeries, shelters, churches, and volunteers create a greater collective impact.",
+  },
+  {
+    title: "Responsibility",
+    body: "We operate transparently, professionally, and with a genuine commitment to helping others.",
+  },
 ];
 
 function AboutPage() {
   return (
     <>
-      <section className="bg-gradient-hero">
-  <div className="mx-auto max-w-4xl px-6 py-24 text-center">
-    <Reveal>
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brown-soft">About us</p>
-    </Reveal>
-    <Reveal delay={100}>
-      <h1 className="mt-4 font-display text-5xl text-brown md:text-6xl">Our story</h1>
-    </Reveal>
-  </div>
-</section>
-      <section className="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:grid-cols-5">
+      <PageHero
+        eyebrow="About us"
+        title="Our story"
+        lede="A student-led effort to make sure perfectly good pastries end up with people, not in the trash."
+      />
+      <section className="mx-auto grid max-w-6xl gap-12 px-6 pb-20 pt-16 md:grid-cols-5 md:pb-24 md:pt-20">
         <Reveal variant="left" className="md:col-span-3 space-y-6 text-lg text-muted-foreground">
-          <p>Our organization started with a simple realization: thousands of perfectly good donuts and pastries are thrown away every day while many people in local communities continue to face food insecurity.</p>
-          <p>What began as a small effort to connect surplus bakery items with people in need quickly grew into a larger mission centered around reducing food waste and strengthening community support.</p>
-          <p>By partnering with local bakeries, shelters, churches, and food assistance organizations, we help redirect unsold food that would otherwise go to waste.</p>
-          <p>We believe small actions can create meaningful change. Every donated pastry represents compassion, sustainability, and community connection.</p>
+          <p>
+            Our organization started with a simple realization: thousands of perfectly good donuts
+            and pastries are thrown away every day while many people in local communities continue
+            to face food insecurity.
+          </p>
+          <p>
+            What began as a small effort to connect surplus bakery items with people in need quickly
+            grew into a larger mission centered around reducing food waste and strengthening
+            community support.
+          </p>
+          <p>
+            By partnering with local bakeries, shelters, churches, and food assistance
+            organizations, we help redirect unsold food that would otherwise go to waste.
+          </p>
+          <p>
+            We believe small actions can create meaningful change. Every donated pastry represents
+            compassion, sustainability, and community connection.
+          </p>
         </Reveal>
         <Reveal variant="right" delay={100} className="md:col-span-2">
-          <img src={donutsBox} alt="Box of pastries" loading="lazy" width={1200} height={900} className="aspect-[3/4] w-full rounded-[2rem] object-cover shadow-soft" />
+          <img
+            src={donutsBox}
+            alt="Box of pastries"
+            loading="lazy"
+            width={1200}
+            height={900}
+            className="aspect-[3/4] w-full rounded-[2rem] object-cover shadow-soft"
+          />
         </Reveal>
       </section>
 
-      <section className="mx-auto max-w-5xl px-6 py-12">
-        <Reveal>
-          <h2 className="font-display text-3xl text-brown md:text-4xl">Leadership</h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
-            {leaders.map((person) => (
-              <div key={person.name} className="rounded-2xl bg-cream-deep p-10 shadow-soft flex flex-col items-center text-center">
-                {person.img ? (
-                  <img
-                    src={person.img}
-                    alt={person.name}
-                    className="h-48 w-48 rounded-full object-cover object-top shadow-soft"
-                  />
-                ) : (
-                  <div className="flex h-48 w-48 items-center justify-center rounded-full bg-orange-pastel font-display text-3xl text-brown">
-                    {person.initials}
-                  </div>
-                )}
-                <h3 className="mt-5 font-display text-2xl text-brown">{person.name}</h3>
-                <p className="text-sm text-muted-foreground">{person.title}</p>
-              </div>
+      <section className="bg-cream-deep">
+        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
+          <Reveal className="text-center">
+            <p className="eyebrow">The team</p>
+            <h2 className="mt-4 font-display text-3xl text-brown md:text-4xl">Leadership</h2>
+          </Reveal>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {leaders.map((person, i) => (
+              <Reveal
+                key={person.name}
+                delay={(Math.min(i, 4) * 100) as 0 | 100 | 200 | 300 | 400}
+                className="h-full"
+              >
+                <div className="hover-lift flex h-full flex-col items-center rounded-[1.75rem] bg-cream p-8 text-center shadow-soft">
+                  {person.img ? (
+                    <img
+                      src={person.img}
+                      alt={person.name}
+                      loading="lazy"
+                      className="h-32 w-32 rounded-full object-cover object-top ring-4 ring-orange-pastel/30"
+                    />
+                  ) : (
+                    <div className="flex h-32 w-32 items-center justify-center rounded-full bg-orange-pastel font-display text-3xl text-brown">
+                      {person.initials}
+                    </div>
+                  )}
+                  <h3 className="mt-5 font-display text-xl text-brown">{person.name}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{person.title}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
-        </Reveal>
+        </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-6 py-16">
-        <Reveal>
-          <h2 className="font-display text-3xl text-brown md:text-4xl">Our Goals</h2>
+      <section className="mx-auto max-w-6xl px-6 py-20 md:py-24">
+        <Reveal className="text-center">
+          <p className="eyebrow">What we're working toward</p>
+          <h2 className="mt-4 font-display text-3xl text-brown md:text-4xl">Our goals</h2>
         </Reveal>
-        <ul className="mt-8 space-y-3">
+        <ul className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2">
           {goals.map((g, i) => (
-            <Reveal key={g} delay={(Math.min(i, 4) * 100) as 0 | 100 | 200 | 300 | 400}>
-              <li className="flex items-start gap-4 rounded-2xl bg-cream-deep p-5">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brown font-display text-sm text-cream">{i + 1}</span>
+            <Reveal
+              key={g}
+              delay={(Math.min(i, 4) * 100) as 0 | 100 | 200 | 300 | 400}
+              className="h-full"
+            >
+              <li className="flex h-full items-start gap-4 rounded-2xl border border-border/60 bg-card p-6">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brown font-display text-sm text-cream">
+                  {i + 1}
+                </span>
                 <span className="text-foreground">{g}</span>
               </li>
             </Reveal>
@@ -107,19 +156,26 @@ function AboutPage() {
         </ul>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <Reveal>
-          <h2 className="font-display text-3xl text-brown md:text-4xl">Our Values</h2>
-        </Reveal>
-        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {values.map((v, i) => (
-            <Reveal key={v.title} delay={(Math.min(i, 4) * 100) as 0 | 100 | 200 | 300 | 400}>
-              <div className="rounded-2xl border border-border/60 bg-card p-6">
-                <h3 className="font-display text-xl text-brown">{v.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{v.body}</p>
-              </div>
-            </Reveal>
-          ))}
+      <section className="bg-cream-deep">
+        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
+          <Reveal className="text-center">
+            <p className="eyebrow">What guides us</p>
+            <h2 className="mt-4 font-display text-3xl text-brown md:text-4xl">Our values</h2>
+          </Reveal>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {values.map((v, i) => (
+              <Reveal
+                key={v.title}
+                delay={(Math.min(i, 4) * 100) as 0 | 100 | 200 | 300 | 400}
+                className="h-full"
+              >
+                <div className="hover-lift h-full rounded-2xl bg-cream p-7 shadow-soft">
+                  <h3 className="font-display text-xl text-brown">{v.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{v.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
     </>

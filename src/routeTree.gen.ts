@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StartAChapterRouteImport } from './routes/start-a-chapter'
 import { Route as ImpactRouteImport } from './routes/impact'
 import { Route as GetInvolvedRouteImport } from './routes/get-involved'
 import { Route as DonateRouteImport } from './routes/donate'
@@ -17,6 +18,11 @@ import { Route as BakeriesRouteImport } from './routes/bakeries'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const StartAChapterRoute = StartAChapterRouteImport.update({
+  id: '/start-a-chapter',
+  path: '/start-a-chapter',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ImpactRoute = ImpactRouteImport.update({
   id: '/impact',
   path: '/impact',
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/donate': typeof DonateRoute
   '/get-involved': typeof GetInvolvedRoute
   '/impact': typeof ImpactRoute
+  '/start-a-chapter': typeof StartAChapterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/donate': typeof DonateRoute
   '/get-involved': typeof GetInvolvedRoute
   '/impact': typeof ImpactRoute
+  '/start-a-chapter': typeof StartAChapterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/donate': typeof DonateRoute
   '/get-involved': typeof GetInvolvedRoute
   '/impact': typeof ImpactRoute
+  '/start-a-chapter': typeof StartAChapterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/donate'
     | '/get-involved'
     | '/impact'
+    | '/start-a-chapter'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/donate'
     | '/get-involved'
     | '/impact'
+    | '/start-a-chapter'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/donate'
     | '/get-involved'
     | '/impact'
+    | '/start-a-chapter'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,10 +131,18 @@ export interface RootRouteChildren {
   DonateRoute: typeof DonateRoute
   GetInvolvedRoute: typeof GetInvolvedRoute
   ImpactRoute: typeof ImpactRoute
+  StartAChapterRoute: typeof StartAChapterRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/start-a-chapter': {
+      id: '/start-a-chapter'
+      path: '/start-a-chapter'
+      fullPath: '/start-a-chapter'
+      preLoaderRoute: typeof StartAChapterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/impact': {
       id: '/impact'
       path: '/impact'
@@ -183,7 +203,18 @@ const rootRouteChildren: RootRouteChildren = {
   DonateRoute: DonateRoute,
   GetInvolvedRoute: GetInvolvedRoute,
   ImpactRoute: ImpactRoute,
+  StartAChapterRoute: StartAChapterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

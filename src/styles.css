@@ -59,6 +59,16 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  /* Brand palette — registered here so every Tailwind color utility
+     (bg-*, text-*, border-*, ring-*, from-*) and opacity modifier works. */
+  --color-cream: var(--cream);
+  --color-cream-deep: var(--cream-deep);
+  --color-brown: var(--brown);
+  --color-brown-soft: var(--brown-soft);
+  --color-pink-soft: var(--pink-soft);
+  --color-orange-pastel: var(--orange-pastel);
+  --font-display: var(--font-display-family);
+  --font-body: var(--font-body-family);
 }
 
 :root {
@@ -94,11 +104,15 @@
   --pink-soft: oklch(0.88 0.06 18);
   --orange-pastel: oklch(0.82 0.13 55);
   --gradient-warm: linear-gradient(135deg, oklch(0.96 0.025 75), oklch(0.92 0.05 30));
-  --gradient-hero: linear-gradient(180deg, oklch(0.985 0.012 80) 0%, oklch(0.94 0.04 35) 100%);
-  --shadow-soft: 0 10px 40px -12px oklch(0.4 0.07 40 / 0.15);
-  --shadow-warm: 0 20px 60px -20px oklch(0.6 0.15 40 / 0.25);
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --gradient-hero: linear-gradient(180deg, oklch(0.985 0.012 80) 0%, oklch(0.945 0.038 35) 100%);
+  --shadow-soft:
+    0 2px 4px -2px oklch(0.4 0.07 40 / 0.06), 0 12px 32px -16px oklch(0.4 0.07 40 / 0.18);
+  --shadow-warm:
+    0 4px 10px -4px oklch(0.5 0.1 40 / 0.1), 0 24px 56px -24px oklch(0.55 0.14 40 / 0.3);
+  --font-display-family: "Fraunces", Georgia, serif;
+  --font-body-family: "Inter", system-ui, sans-serif;
+  --font-display: var(--font-display-family);
+  --font-body: var(--font-body-family);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -161,24 +175,66 @@
     font-feature-settings: "ss01", "cv11";
   }
 
-  h1, h2, h3, h4, h5 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  /* Visible, consistent focus ring for keyboard users across the site. */
+  :focus-visible {
+    outline: 2px solid var(--brown-soft);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--orange-pastel);
+    color: var(--brown);
   }
 }
 
 @layer utilities {
-  .font-display { font-family: var(--font-display); }
-  .bg-cream { background-color: var(--cream); }
-  .bg-cream-deep { background-color: var(--cream-deep); }
-  .bg-pink-soft { background-color: var(--pink-soft); }
-  .bg-orange-pastel { background-color: var(--orange-pastel); }
-  .text-brown { color: var(--brown); }
-  .text-brown-soft { color: var(--brown-soft); }
-  .bg-gradient-warm { background: var(--gradient-warm); }
-  .bg-gradient-hero { background: var(--gradient-hero); }
-  .shadow-soft { box-shadow: var(--shadow-soft); }
-  .shadow-warm { box-shadow: var(--shadow-warm); }
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .bg-gradient-warm {
+    background: var(--gradient-warm);
+  }
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  .shadow-warm {
+    box-shadow: var(--shadow-warm);
+  }
+
+  /* Shared section furniture so every page keeps the same rhythm. */
+  .section {
+    padding-block: 5rem;
+  }
+  @media (min-width: 768px) {
+    .section {
+      padding-block: 7rem;
+    }
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brown-soft);
+  }
+  /* Soft dotted texture used behind hero sections. */
+  .bg-dots {
+    background-image: radial-gradient(oklch(0.4 0.07 40 / 0.07) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
 }
 
 @layer utilities {
@@ -186,27 +242,58 @@
   .reveal {
     opacity: 0;
     transform: translateY(24px);
-    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition:
+      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: opacity, transform;
   }
   .reveal.in-view {
     opacity: 1;
     transform: translateY(0);
   }
-  .reveal-left { transform: translateX(-32px); }
-  .reveal-right { transform: translateX(32px); }
+  /* Below md the columns stack, and a horizontal offset would push the
+     element past the viewport and create a horizontal scrollbar — so the
+     side variants fall back to the vertical rise on small screens. */
+  .reveal-left,
+  .reveal-right {
+    transform: translateY(24px);
+  }
+  @media (min-width: 768px) {
+    .reveal-left {
+      transform: translateX(-32px);
+    }
+    .reveal-right {
+      transform: translateX(32px);
+    }
+  }
   .reveal-left.in-view,
-  .reveal-right.in-view { transform: translateX(0); }
-  .reveal-zoom { transform: scale(0.94); }
-  .reveal-zoom.in-view { transform: scale(1); }
+  .reveal-right.in-view {
+    transform: translate(0, 0);
+  }
+  .reveal-zoom {
+    transform: scale(0.94);
+  }
+  .reveal-zoom.in-view {
+    transform: scale(1);
+  }
 
-  .delay-100 { transition-delay: 0.1s; }
-  .delay-200 { transition-delay: 0.2s; }
-  .delay-300 { transition-delay: 0.3s; }
-  .delay-400 { transition-delay: 0.4s; }
+  .delay-100 {
+    transition-delay: 0.1s;
+  }
+  .delay-200 {
+    transition-delay: 0.2s;
+  }
+  .delay-300 {
+    transition-delay: 0.3s;
+  }
+  .delay-400 {
+    transition-delay: 0.4s;
+  }
 
   .hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
   .hover-lift:hover {
     transform: translateY(-4px);
@@ -214,18 +301,39 @@
   }
 
   @keyframes float-slow {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
   }
-  .animate-float { animation: float-slow 6s ease-in-out infinite; }
+  .animate-float {
+    animation: float-slow 6s ease-in-out infinite;
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; transition: none; }
-    .animate-float { animation: none; }
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .animate-float {
+      animation: none;
+    }
   }
   @keyframes fade-up {
-    from { opacity: 0; transform: translateY(30px); filter: blur(4px); }
-    to { opacity: 1; transform: translateY(0); filter: blur(0px); }
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+      filter: blur(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
+    }
   }
   .animate-fade-up {
     animation: fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;

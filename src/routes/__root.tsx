@@ -75,11 +75,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Page Order — Rescuing pastries, feeding communities" },
-      { name: "description", content: "Page Order is a nonprofit rescuing surplus donuts and pastries from local bakeries and redistributing them to people in need." },
-      { name: "author", content: "Page Order" },
-      { property: "og:title", content: "Page Order — Making a difference, one donut at a time" },
-      { property: "og:description", content: "We rescue surplus pastries from local bakeries and deliver them to communities in need." },
+      { title: "Zero Crumbs Initiative — Rescuing pastries, feeding communities" },
+      {
+        name: "description",
+        content:
+          "Zero Crumbs Initiative is a nonprofit rescuing surplus donuts and pastries from local bakeries and redistributing them to people in need.",
+      },
+      { name: "author", content: "Zero Crumbs Initiative" },
+      {
+        property: "og:title",
+        content: "Zero Crumbs Initiative — Making a difference, one donut at a time",
+      },
+      {
+        property: "og:description",
+        content:
+          "We rescue surplus pastries from local bakeries and deliver them to communities in need.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "google-site-verification", content: "H92fLqK1z45lnknGvfenJ_CcQjDNp7P1WUClEQOM7ks" },
