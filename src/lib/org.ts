@@ -15,11 +15,23 @@ export const ORG = {
     href: "https://instagram.com/zerocrumbinitiative",
   },
 
+  // ---- CONFIRMED FROM YOUR DOCUMENTS ------------------------------------
+  /** Articles of Incorporation, filed 4/18/2026 (CA file no. B20260185918). */
+  incorporation: "California nonprofit public benefit corporation",
+  /** IRS Notice CP 575, May 16, 2026. */
+  ein: "42-2596733",
+  /** City only. The principal office is a residence, so no street address. */
+  location: "Cerritos, California",
+  /** Publicly shared on Drive. */
+  chapterAgreementUrl: "https://drive.google.com/file/d/1vWrDPlaj-oOeAeAU4-UboXgizgcE8hWd/view",
+
   // ---- TO FILL IN -------------------------------------------------------
-  /** e.g. "501(c)(3) public charity". Shows the badge on Home, the footer and Donate. */
-  taxStatus: null as string | null,
-  /** e.g. "12-3456789". Only shown together with taxStatus. */
-  ein: null as string | null,
+  /**
+   * e.g. "501(c)(3) public charity". Leave null until the IRS determination
+   * letter exists. A Form 1023-EZ was filed 6/7/2026, but an EIN alone is not
+   * tax-exempt status. While null, no page claims 501(c)(3) or deductibility.
+   */
+  taxExempt: null as string | null,
   /** e.g. "November 2026". Dates the stats on Home and Impact. */
   statsAsOf: null as string | null,
   /** One or two sentences on how the stats are counted. Shown on Impact. */
@@ -28,8 +40,13 @@ export const ORG = {
   donateUrl: null as string | null,
   /** Link to a playbook PDF/preview for chapter applicants. */
   playbookUrl: null as string | null,
-  /** e.g. [{ label: "Bylaws", href: "/bylaws.pdf" }]. Shown in the footer. */
-  transparency: [] as { label: string; href: string }[],
+  /** Documents linked from the footer. */
+  transparency: [
+    {
+      label: "Bylaws & conflict of interest policy",
+      href: "https://drive.google.com/file/d/102XmBjibHy9kfqtj8CFdm_iaoMoxxkO-/view",
+    },
+  ] as { label: string; href: string }[],
   /** Active chapters, shown on Impact. */
   chapters: [] as { name: string; location: string }[],
   /** Quotes from partners, shown on Impact. */

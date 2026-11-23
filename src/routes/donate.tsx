@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Heart, ArrowRight, Mail, Truck, Package, HandHeart } from "lucide-react";
+import { ArrowRight, Mail, Truck, Package, HandHeart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
 import { NonprofitBadge } from "@/components/nonprofit-badge";
@@ -52,13 +52,7 @@ function DonatePage() {
       <section className="bg-gradient-hero bg-dots relative overflow-hidden">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 md:grid-cols-2 md:py-24">
           <Reveal variant="left">
-            {ORG.taxStatus ? (
-              <NonprofitBadge />
-            ) : (
-              <span className="inline-flex items-center gap-2 rounded-full bg-cream px-4 py-1.5 text-xs font-medium text-brown shadow-soft">
-                <Heart className="h-3.5 w-3.5 text-orange-pastel" /> Support our mission
-              </span>
-            )}
+            <NonprofitBadge />
             <h1 className="mt-6 font-display text-5xl leading-[1.05] text-brown md:text-7xl">
               Donate today, <em className="not-italic text-brown-soft">change tomorrow</em>.
             </h1>
@@ -173,13 +167,16 @@ function DonatePage() {
             </div>
           )}
 
-          {ORG.taxStatus && (
-            <p className="mx-auto mt-10 max-w-2xl rounded-2xl border border-border/60 bg-cream p-6 text-center text-sm leading-relaxed text-muted-foreground">
-              {ORG.name} is a {ORG.taxStatus}
-              {ORG.ein ? <> (EIN {ORG.ein})</> : null}. Contributions may be tax-deductible to the
-              extent permitted by law.
-            </p>
-          )}
+          <p className="mx-auto mt-10 max-w-2xl rounded-2xl border border-border/60 bg-cream p-6 text-center text-sm leading-relaxed text-muted-foreground">
+            {ORG.name} is a {ORG.incorporation} (EIN {ORG.ein}).
+            {ORG.taxExempt && (
+              <>
+                {" "}
+                It is recognized as a {ORG.taxExempt}. Contributions may be tax-deductible to the
+                extent permitted by law.
+              </>
+            )}
+          </p>
         </div>
       </section>
 

@@ -22,7 +22,7 @@ export function SiteFooter() {
               <span className="font-display text-lg font-semibold text-brown">{ORG.name}</span>
             </div>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              Making a difference, one donut at a time.
+              Making a difference, one donut at a time. Based in {ORG.location}.
             </p>
             <NonprofitBadge className="mt-5" />
           </div>
@@ -112,8 +112,7 @@ export function SiteFooter() {
 
         <div className="mt-12 flex flex-col gap-3 border-t border-border/60 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {ORG.name}. All rights reserved.
-            {ORG.taxStatus && ORG.ein && <> EIN {ORG.ein}.</>}
+            © {new Date().getFullYear()} {ORG.name}. All rights reserved. EIN {ORG.ein}.
           </p>
           {ORG.transparency.length > 0 && (
             <ul className="flex flex-wrap gap-x-5 gap-y-1">

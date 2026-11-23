@@ -434,9 +434,24 @@ function PartnerForm() {
     <form onSubmit={onSubmit} className="space-y-8">
       <p className="text-muted-foreground">
         By donating surplus pastries and baked goods, your business helps provide food support to
-        local organizations while reducing unnecessary waste. It takes about two minutes to tell us
-        what you have.
+        local organizations while reducing unnecessary waste.
       </p>
+
+      <ul className="grid gap-3 rounded-2xl bg-cream-deep p-6 text-sm sm:grid-cols-2">
+        {[
+          "Set aside unsold items in a box at closing. That's it.",
+          "We pick up on a set schedule that fits your hours.",
+          "Food goes to a local shelter or food bank.",
+          "No fees and no ongoing commitment required.",
+          "Every donation gets a written receipt.",
+          "Food donated in good faith is covered by the Bill Emerson Good Samaritan Food Donation Act.",
+        ].map((t) => (
+          <li key={t} className="flex items-start gap-2 text-foreground">
+            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-pastel" />
+            {t}
+          </li>
+        ))}
+      </ul>
 
       <fieldset className="space-y-4">
         <legend className="w-full border-b border-border/60 pb-2 font-display text-2xl text-brown">

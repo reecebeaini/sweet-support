@@ -30,7 +30,7 @@ const perks = [
   {
     Icon: Users,
     title: "Built-in playbook",
-    body: "You'll get our chapter host agreement, outreach templates, and onboarding steps so you're not starting from zero.",
+    body: "You'll get our chapter handbook, host agreement, and outreach templates, so you're not starting from zero.",
   },
   {
     Icon: MapPin,
@@ -39,19 +39,39 @@ const perks = [
   },
   {
     Icon: Heart,
-    title: "National support",
-    body: "Lean on our core team for guidance as you recruit volunteers and grow your chapter.",
+    title: "Founding-team support",
+    body: "Get ongoing check-ins and mentorship from our founding team as you recruit volunteers and grow your chapter.",
   },
 ];
 
 const steps = [
-  { title: "Apply", body: "Tell us where you'd like to start a chapter and why." },
-  { title: "We reach out", body: "Our team gets back to you with next steps." },
-  { title: "Build your team", body: "Recruit volunteers and line up your first bakery partner." },
   {
-    title: "Make your first delivery",
-    body: "Collect surplus and deliver it to a shelter or food bank near you.",
+    title: "Confirm your chapter and territory",
+    body: "Pick your chapter name and the city or school you'll cover, and confirm it with our team.",
   },
+  {
+    title: "Recruit your core team",
+    body: "Start with a Vice President and at least one volunteer. Chapters also have a Director of Outreach and a Media Coordinator.",
+  },
+  {
+    title: "Line up your partners",
+    body: "Identify 5–6 local donut shops to approach and 1–2 receiving partners, like a shelter, food bank, or church pantry.",
+  },
+  {
+    title: "Run your first pickup and delivery",
+    body: "Collect surplus at closing and deliver it. Log it within 48 hours.",
+  },
+  {
+    title: "Check in with us",
+    body: "After your first two weeks of pickups, we'll sit down together to see what's working.",
+  },
+];
+
+const commitments = [
+  "Roughly 2–4 hours a week, built to fit around school",
+  "At least one bakery or donut shop partner on a recurring schedule",
+  "At least one receiving partner, such as a shelter or food pantry",
+  "A short monthly report to our team: runs completed, pounds rescued, partners served",
 ];
 
 function StartChapterPage() {
@@ -109,18 +129,36 @@ function StartChapterPage() {
             <Reveal variant="left" className="md:col-span-2">
               <p className="eyebrow">Who can apply</p>
               <h2 className="mt-4 font-display text-3xl text-brown md:text-4xl">
-                Ready to organize where you are
+                Student-run chapters, in your own city
               </h2>
               <p className="mt-4 leading-relaxed text-muted-foreground">
-                If you care about food waste and hunger in your community and are ready to organize
-                in your own school or city, we'd love to hear from you.
+                Zero Crumbs chapters are run by students. If you care about food waste and hunger in
+                your community and want to lead a team, we'd love to hear from you. Chapters operate
+                under our nonprofit umbrella, so you don't need to incorporate separately.
               </p>
+              <h3 className="mt-8 font-display text-xl text-brown">What a chapter commits to</h3>
+              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                {commitments.map((c) => (
+                  <li key={c} className="flex items-start gap-2">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-pastel" />
+                    {c}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={ORG.chapterAgreementUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 inline-flex items-center gap-2 font-semibold text-brown transition-colors hover:text-brown-soft"
+              >
+                <Download className="h-4 w-4" /> Read the chapter host agreement
+              </a>
               {ORG.playbookUrl && (
                 <a
                   href={ORG.playbookUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 font-semibold text-brown transition-colors hover:text-brown-soft"
+                  className="mt-3 flex items-center gap-2 font-semibold text-brown transition-colors hover:text-brown-soft"
                 >
                   <Download className="h-4 w-4" /> Preview the chapter playbook
                 </a>

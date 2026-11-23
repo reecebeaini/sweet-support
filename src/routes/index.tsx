@@ -87,14 +87,7 @@ function Index() {
         />
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 md:grid-cols-2 md:py-24">
           <Reveal variant="left">
-            {ORG.taxStatus ? (
-              <NonprofitBadge />
-            ) : (
-              <span className="inline-flex items-center gap-2 rounded-full bg-cream px-4 py-1.5 text-xs font-medium text-brown shadow-soft">
-                <span className="h-1.5 w-1.5 rounded-full bg-orange-pastel" /> A nonprofit
-                initiative
-              </span>
-            )}
+            <NonprofitBadge />
             <h1 className="mt-6 font-display text-5xl leading-[1.05] text-brown md:text-7xl">
               Making a difference, <em className="not-italic text-brown-soft">one donut</em> at a
               time.
