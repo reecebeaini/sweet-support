@@ -1,10 +1,27 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Link } from "@tanstack/react-router";
-import { ArrowRight, Heart, Leaf, Users, Package, Truck, HandHeart } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  Heart,
+  Leaf,
+  Users,
+  Package,
+  Truck,
+  HandHeart,
+  Store,
+  Flag,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
+import { NonprofitBadge } from "@/components/nonprofit-badge";
 import heroImg from "@/assets/hero-donuts.jpg";
-import donutImg from "@/assets/donut.png";
+import {
+  BAKERIES,
+  COMMUNITY_PARTNERS,
+  MORE_BAKERIES,
+  MORE_COMMUNITY_PARTNERS,
+  ORG,
+  STATS,
+} from "@/lib/org";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,9 +51,9 @@ export const Route = createFileRoute("/")({
 });
 
 const stats = [
-  { num: "25,000+", label: "Donuts rescued", Icon: Heart },
-  { num: "86", label: "Bakery partners", Icon: Leaf },
-  { num: "38", label: "Community partners", Icon: Users },
+  { num: STATS.donuts, label: "Donuts rescued", Icon: Heart },
+  { num: STATS.bakeries, label: "Bakery partners", Icon: Leaf },
+  { num: STATS.communityPartners, label: "Community partners", Icon: Users },
 ];
 
 const steps = [
@@ -48,7 +65,7 @@ const steps = [
   {
     Icon: Truck,
     title: "Volunteers collect it",
-    body: "Our trained volunteers run scheduled pickups and keep everything packaged safely in transit.",
+    body: "Trained volunteers run scheduled pickups and keep everything packaged safely in transit.",
   },
   {
     Icon: HandHeart,
@@ -58,6 +75,8 @@ const steps = [
 ];
 
 function Index() {
+  const featuredPartners = [...BAKERIES.slice(0, 4).map((b) => b.name), ...COMMUNITY_PARTNERS];
+
   return (
     <>
       {/* Hero */}
@@ -66,11 +85,16 @@ function Index() {
           aria-hidden
           className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-pink-soft/40 blur-3xl"
         />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-2 md:py-28">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 md:grid-cols-2 md:py-24">
           <Reveal variant="left">
-            <span className="inline-flex items-center gap-2 rounded-full bg-cream px-4 py-1.5 text-xs font-medium text-brown shadow-soft">
-              <span className="h-1.5 w-1.5 rounded-full bg-orange-pastel" /> A nonprofit initiative
-            </span>
+            {ORG.taxStatus ? (
+              <NonprofitBadge />
+            ) : (
+              <span className="inline-flex items-center gap-2 rounded-full bg-cream px-4 py-1.5 text-xs font-medium text-brown shadow-soft">
+                <span className="h-1.5 w-1.5 rounded-full bg-orange-pastel" /> A nonprofit
+                initiative
+              </span>
+            )}
             <h1 className="mt-6 font-display text-5xl leading-[1.05] text-brown md:text-7xl">
               Making a difference, <em className="not-italic text-brown-soft">one donut</em> at a
               time.
@@ -98,14 +122,10 @@ function Index() {
                 </Button>
               </Link>
             </div>
-            <p className="mt-8 text-sm text-muted-foreground">
-              <span className="font-semibold text-brown">25,000+</span> pastries rescued with{" "}
-              <span className="font-semibold text-brown">86</span> bakery partners.
-            </p>
           </Reveal>
           <Reveal variant="right" delay={100}>
             <div className="relative">
-              <div className="absolute -inset-4 rounded-[2rem] bg-orange-pastel/30 blur-2xl animate-float" />
+              <div className="absolute -inset-4 animate-float rounded-[2rem] bg-orange-pastel/30 blur-2xl" />
               <img
                 src={heroImg}
                 alt="Fresh donuts on parchment"
@@ -118,21 +138,8 @@ function Index() {
         </div>
       </section>
 
-      {/* Mission */}
-      <Reveal as="section" className="mx-auto max-w-5xl px-6 py-20 text-center md:py-24">
-        <p className="eyebrow">Our mission</p>
-        <h2 className="mt-4 font-display text-3xl text-brown md:text-5xl">
-          Reduce food waste. Strengthen communities.
-        </h2>
-        <p className="mx-auto mt-6 max-w-3xl text-lg text-muted-foreground">
-          We partner with local bakeries and community organizations to collect and distribute
-          unsold donuts and pastries that would otherwise go to waste — bringing them to those who
-          need it most.
-        </p>
-      </Reveal>
-
       {/* Stats */}
-      <section className="mx-auto max-w-7xl px-6 pb-20 md:pb-24">
+      <section className="mx-auto max-w-7xl px-6 py-16 md:py-20">
         <div className="grid gap-4 sm:grid-cols-3">
           {stats.map(({ num, label, Icon }, i) => (
             <Reveal key={label} delay={(i * 100) as 0 | 100 | 200} className="h-full">
@@ -148,11 +155,17 @@ function Index() {
             </Reveal>
           ))}
         </div>
+        <p className="mt-4 text-center text-xs text-muted-foreground">
+          {ORG.statsAsOf ? `As of ${ORG.statsAsOf}. ` : ""}
+          <Link to="/impact" className="underline-offset-4 hover:text-brown hover:underline">
+            See the full impact report
+          </Link>
+        </p>
       </section>
 
       {/* How it works */}
       <section className="bg-cream-deep">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
           <Reveal className="text-center">
             <p className="eyebrow">How it works</p>
             <h2 className="mt-4 font-display text-3xl text-brown md:text-5xl">
@@ -176,73 +189,95 @@ function Index() {
         </div>
       </section>
 
-      {/* Story */}
-      <section className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-2 md:py-24">
-        <Reveal variant="left">
-          <img
-            src={donutImg}
-            alt="A delicious donut"
-            loading="lazy"
-            width={1400}
-            height={1000}
-            className="aspect-[4/3] w-full rounded-[2rem] object-cover shadow-soft"
-          />
-        </Reveal>
-        <Reveal variant="right" delay={100}>
-          <p className="eyebrow">Our story</p>
-          <h2 className="mt-4 font-display text-3xl text-brown md:text-5xl">
-            Small actions. Meaningful change.
+      {/* Partners */}
+      <section className="mx-auto max-w-5xl px-6 py-16 text-center md:py-24">
+        <Reveal>
+          <p className="eyebrow">Our partners</p>
+          <h2 className="mt-4 font-display text-3xl text-brown md:text-4xl">
+            Working with {STATS.bakeries} bakeries and {STATS.communityPartners} community
+            organizations
           </h2>
-          <p className="mt-6 text-lg text-muted-foreground">
-            Every donated pastry represents more than food — it represents compassion,
-            sustainability, and community connection.
-          </p>
-          <Link
-            to="/about"
-            className="mt-8 inline-flex items-center gap-2 font-semibold text-brown transition-colors hover:text-brown-soft"
-          >
-            Read our story <ArrowRight className="h-4 w-4" />
-          </Link>
+          <ul className="mt-10 flex flex-wrap justify-center gap-3">
+            {featuredPartners.map((name) => (
+              <li
+                key={name}
+                className="rounded-full border border-border/70 bg-card px-5 py-2.5 text-sm text-brown shadow-soft"
+              >
+                {name}
+              </li>
+            ))}
+            <li className="rounded-full border border-dashed border-brown/25 px-5 py-2.5 text-sm text-muted-foreground">
+              +{MORE_BAKERIES + MORE_COMMUNITY_PARTNERS} more
+            </li>
+          </ul>
         </Reveal>
       </section>
 
-      {/* Closing CTA */}
-      <section className="mx-auto max-w-6xl px-6 pb-20 md:pb-24">
-        <Reveal variant="zoom">
-          <div className="relative overflow-hidden rounded-[2rem] bg-brown px-8 py-14 text-center text-cream md:px-16">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -right-16 -top-16 h-60 w-60 rounded-full bg-orange-pastel/20 blur-2xl"
-            />
-            <div className="relative">
-              <h2 className="font-display text-3xl md:text-4xl">
-                Ready to help rescue the next batch?
-              </h2>
-              <p className="mx-auto mt-4 max-w-xl text-cream/80">
-                Volunteer a few hours, partner your bakery, or start a chapter in your own city.
-              </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <Link to="/get-involved">
-                  <Button
-                    size="lg"
-                    className="rounded-full bg-orange-pastel text-brown hover:bg-orange-pastel/90"
-                  >
-                    Volunteer with us
-                  </Button>
+      {/* One door per audience */}
+      <section className="bg-cream-deep">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
+          <Reveal className="text-center">
+            <p className="eyebrow">Join in</p>
+            <h2 className="mt-4 font-display text-3xl text-brown md:text-5xl">
+              Where would you like to start?
+            </h2>
+          </Reveal>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                Icon: Heart,
+                title: "Donate",
+                body: "Fund pickups, packaging, and deliveries.",
+                to: "/donate" as const,
+                search: undefined,
+              },
+              {
+                Icon: HandHeart,
+                title: "Volunteer",
+                body: "Pack, drive, or help us spread the word.",
+                to: "/get-involved" as const,
+                search: { tab: "volunteer" as const },
+              },
+              {
+                Icon: Store,
+                title: "Run a bakery?",
+                body: "Turn end-of-day surplus into community impact.",
+                to: "/get-involved" as const,
+                search: { tab: "bakery" as const },
+              },
+              {
+                Icon: Flag,
+                title: "Start a chapter",
+                body: "Bring Zero Crumbs to your school or city.",
+                to: "/start-a-chapter" as const,
+                search: undefined,
+              },
+            ].map(({ Icon, title, body, to, search }, i) => (
+              <Reveal
+                key={title}
+                delay={(Math.min(i, 3) * 100) as 0 | 100 | 200 | 300}
+                className="h-full"
+              >
+                <Link
+                  to={to}
+                  search={search}
+                  className="hover-lift flex h-full flex-col rounded-[1.75rem] bg-cream p-7 shadow-soft"
+                >
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-pastel text-brown">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <h3 className="mt-5 font-display text-xl text-brown">{title}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    {body}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brown">
+                    Go <ArrowRight className="h-3.5 w-3.5" />
+                  </span>
                 </Link>
-                <Link to="/start-a-chapter">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="rounded-full border-cream/40 bg-transparent text-cream hover:bg-cream/10 hover:text-cream"
-                  >
-                    Start a chapter
-                  </Button>
-                </Link>
-              </div>
-            </div>
+              </Reveal>
+            ))}
           </div>
-        </Reveal>
+        </div>
       </section>
     </>
   );

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
 import { PageHero } from "@/components/page-hero";
+import { BAKERIES, MORE_BAKERIES, ORG, STATS } from "@/lib/org";
+import { MapPin, Mail, Package, Truck, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/get-involved")({
   head: () => ({
@@ -20,8 +22,14 @@ export const Route = createFileRoute("/get-involved")({
       },
     ],
   }),
+  validateSearch: (search: Record<string, unknown>): { tab?: Tab } => {
+    const t = search.tab;
+    return t === "volunteer" || t === "bakery" || t === "in-kind" ? { tab: t } : {};
+  },
   component: GetInvolvedPage,
 });
+
+type Tab = "volunteer" | "bakery" | "in-kind";
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
@@ -423,59 +431,52 @@ function PartnerForm() {
     }
   };
   return (
-    <form onSubmit={onSubmit} className="space-y-10">
+    <form onSubmit={onSubmit} className="space-y-8">
       <p className="text-muted-foreground">
         By donating surplus pastries and baked goods, your business helps provide food support to
-        local organizations while reducing unnecessary waste.
+        local organizations while reducing unnecessary waste. It takes about two minutes to tell us
+        what you have.
       </p>
 
       <fieldset className="space-y-4">
         <legend className="w-full border-b border-border/60 pb-2 font-display text-2xl text-brown">
-          Business Information
+          Your business
         </legend>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <Label>Business Name *</Label>
-            <Input name="businessName" required />
+            <Label htmlFor="businessName">Business name *</Label>
+            <Input id="businessName" name="businessName" required />
           </div>
           <div>
-            <Label>Business Type</Label>
-            <Input name="businessType" />
+            <Label htmlFor="contactPerson">Contact person *</Label>
+            <Input id="contactPerson" name="contactPerson" required />
           </div>
           <div>
-            <Label>Contact Person *</Label>
-            <Input name="contactPerson" required />
+            <Label htmlFor="partnerEmail">Email *</Label>
+            <Input id="partnerEmail" name="email" type="email" required />
           </div>
           <div>
-            <Label>Position / Role</Label>
-            <Input name="role" />
-          </div>
-          <div>
-            <Label>Email *</Label>
-            <Input name="email" type="email" required />
-          </div>
-          <div>
-            <Label>Phone *</Label>
-            <Input name="phone" type="tel" required />
+            <Label htmlFor="partnerPhone">Phone *</Label>
+            <Input id="partnerPhone" name="phone" type="tel" required />
           </div>
           <div className="sm:col-span-2">
-            <Label>Business Address</Label>
-            <Input name="address" />
+            <Label htmlFor="address">Business address</Label>
+            <Input id="address" name="address" />
           </div>
         </div>
       </fieldset>
 
       <fieldset className="space-y-4">
         <legend className="w-full border-b border-border/60 pb-2 font-display text-2xl text-brown">
-          Donation Information
+          What you could donate
         </legend>
         <CheckboxGroup
-          label="Items interested in donating"
+          label="Items"
           options={["Donuts", "Pastries", "Bagels", "Bread", "Other Baked Goods"]}
           name="items"
         />
         <div>
-          <Label className="mb-2 block">Donation frequency</Label>
+          <Label className="mb-2 block">How often?</Label>
           <RadioGroup name="frequency" className="flex flex-wrap gap-4">
             {["Daily", "Several Times Per Week", "Weekly", "Occasionally"].map((v) => (
               <label key={v} className="flex items-center gap-2">
@@ -485,83 +486,19 @@ function PartnerForm() {
             ))}
           </RadioGroup>
         </div>
-        <div>
-          <Label className="mb-2 block">Estimated quantity per donation</Label>
-          <RadioGroup name="quantity" className="flex flex-wrap gap-4">
-            {["Under 25", "25–50", "50–100", "100+"].map((v) => (
-              <label key={v} className="flex items-center gap-2">
-                <RadioGroupItem value={v} />
-                {v}
-              </label>
-            ))}
-          </RadioGroup>
-        </div>
-      </fieldset>
-
-      <fieldset className="space-y-4">
-        <legend className="w-full border-b border-border/60 pb-2 font-display text-2xl text-brown">
-          Pickup Preferences
-        </legend>
-        <CheckboxGroup label="Preferred pickup days" options={days} name="pickupDays" />
-        <CheckboxGroup
-          label="Preferred pickup time"
-          options={["Morning", "Afternoon", "Evening", "End of Business Day"]}
-          name="pickupTime"
-        />
-        <div>
-          <Label className="mb-2 block">Recurring pickups?</Label>
-          <RadioGroup name="recurring" className="flex gap-4">
-            {["Yes", "No", "Unsure"].map((v) => (
-              <label key={v} className="flex items-center gap-2">
-                <RadioGroupItem value={v} />
-                {v}
-              </label>
-            ))}
-          </RadioGroup>
-        </div>
-      </fieldset>
-
-      <fieldset className="space-y-4">
-        <legend className="w-full border-b border-border/60 pb-2 font-display text-2xl text-brown">
-          Business Benefits
-        </legend>
-        <CheckboxGroup
-          label="What interests your business?"
-          options={[
-            "Reducing Food Waste",
-            "Supporting Local Communities",
-            "Sustainability",
-            "Community Recognition",
-            "Tax Deductions",
-            "Surplus Disposal",
-          ]}
-          name="benefits"
-        />
-      </fieldset>
-
-      <fieldset className="space-y-4">
-        <legend className="w-full border-b border-border/60 pb-2 font-display text-2xl text-brown">
-          Additional Information
-        </legend>
-        <Textarea name="notes" placeholder="Questions, special pickup instructions..." rows={4} />
+        <CheckboxGroup label="Best pickup days" options={days} name="pickupDays" />
       </fieldset>
 
       <fieldset className="space-y-3">
         <legend className="w-full border-b border-border/60 pb-2 font-display text-2xl text-brown">
-          Agreement
+          Anything else?
         </legend>
-        <label className="flex items-start gap-3 text-sm">
+        <Textarea name="notes" placeholder="Questions, special pickup instructions..." rows={3} />
+        <label className="flex items-start gap-3 pt-2 text-sm">
           <Checkbox required className="mt-1" />
           <span>
             I understand submitted information will be used to coordinate donation and pickup
             opportunities.
-          </span>
-        </label>
-        <label className="flex items-start gap-3 text-sm">
-          <Checkbox required className="mt-1" />
-          <span>
-            I understand donation schedules may vary depending on volunteer and community
-            availability.
           </span>
         </label>
       </fieldset>
@@ -574,46 +511,117 @@ function PartnerForm() {
       >
         {submitting ? "Submitting..." : "Submit Partnership Interest"}
       </Button>
+
+      <div className="border-t border-border/60 pt-8">
+        <h3 className="font-display text-xl text-brown">
+          Join the {STATS.bakeries} bakeries already on board
+        </h3>
+        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+          {BAKERIES.map((b) => (
+            <li key={b.name} className="flex items-start gap-2 text-sm">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brown-soft" />
+              <span>
+                <span className="font-medium text-brown">{b.name}</span>
+                <span className="block text-muted-foreground">{b.address}</span>
+              </span>
+            </li>
+          ))}
+          <li className="text-sm italic text-muted-foreground">
+            and {MORE_BAKERIES} more across the community
+          </li>
+        </ul>
+      </div>
     </form>
   );
 }
 
+function InKindPanel() {
+  const items = [
+    {
+      Icon: Package,
+      title: "Packaging",
+      body: "Boxes, bags, and labels that keep rescued food safe and organized.",
+    },
+    {
+      Icon: Truck,
+      title: "Transportation",
+      body: "Vehicles and drivers to move food from bakeries to distribution partners.",
+    },
+    {
+      Icon: Clock,
+      title: "Volunteer hours",
+      body: "Your team's time, from pickup shifts to packaging events.",
+    },
+  ];
+  const subject = encodeURIComponent("In-kind donation to " + ORG.name);
+  return (
+    <div className="space-y-8">
+      <p className="text-muted-foreground">
+        Donate packaging, transportation, or volunteer hours to keep us moving. Tell us what you can
+        offer and we'll follow up to make it work.
+      </p>
+      <div className="grid gap-4 sm:grid-cols-3">
+        {items.map(({ Icon, title, body }) => (
+          <div key={title} className="rounded-2xl bg-cream-deep p-6">
+            <Icon className="h-7 w-7 text-orange-pastel" />
+            <h3 className="mt-3 font-display text-lg text-brown">{title}</h3>
+            <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{body}</p>
+          </div>
+        ))}
+      </div>
+      <a href={`mailto:${ORG.email}?subject=${subject}`}>
+        <Button
+          size="lg"
+          className="rounded-full bg-brown text-cream shadow-soft transition hover:bg-brown-soft"
+        >
+          <Mail className="mr-2 h-4 w-4" /> Email us about in-kind giving
+        </Button>
+      </a>
+    </div>
+  );
+}
+
 function GetInvolvedPage() {
+  const { tab = "volunteer" } = Route.useSearch();
+  const navigate = useNavigate({ from: Route.fullPath });
+  const triggerClass =
+    "rounded-full py-2 data-[state=active]:bg-cream data-[state=active]:text-brown data-[state=active]:shadow-soft";
+  const panelClass =
+    "mt-10 rounded-[2rem] border border-border/60 bg-card p-6 shadow-soft sm:p-8 md:p-12";
+
   return (
     <>
       <PageHero
         eyebrow="Get involved"
         title="Join the movement"
-        lede="Volunteer your time or partner your bakery — every contribution rescues pastries and feeds neighbors."
+        lede="Volunteer your time, partner your bakery, or give in kind — every contribution rescues pastries and feeds neighbors."
       />
 
       <section className="mx-auto max-w-4xl px-6 pb-20 pt-12 md:pb-24 md:pt-16">
-        <Tabs defaultValue="volunteer" className="w-full">
-          <TabsList className="mx-auto grid h-auto w-full max-w-md grid-cols-2 rounded-full bg-cream-deep p-1.5">
-            <TabsTrigger
-              value="volunteer"
-              className="rounded-full py-2 data-[state=active]:bg-cream data-[state=active]:text-brown data-[state=active]:shadow-soft"
-            >
+        <Tabs
+          value={tab}
+          onValueChange={(v) => navigate({ search: { tab: v as Tab }, replace: true })}
+          className="w-full"
+        >
+          <TabsList className="mx-auto grid h-auto w-full max-w-xl grid-cols-3 rounded-full bg-cream-deep p-1.5">
+            <TabsTrigger value="volunteer" className={triggerClass}>
               Volunteer
             </TabsTrigger>
-            <TabsTrigger
-              value="partner"
-              className="rounded-full py-2 data-[state=active]:bg-cream data-[state=active]:text-brown data-[state=active]:shadow-soft"
-            >
-              Partner With Us
+            <TabsTrigger value="bakery" className={triggerClass}>
+              Bakery Partner
+            </TabsTrigger>
+            <TabsTrigger value="in-kind" className={triggerClass}>
+              In-kind
             </TabsTrigger>
           </TabsList>
-          <TabsContent
-            value="volunteer"
-            className="mt-10 rounded-[2rem] border border-border/60 bg-card p-6 shadow-soft sm:p-8 md:p-12"
-          >
+          <TabsContent value="volunteer" className={panelClass}>
             <VolunteerForm />
           </TabsContent>
-          <TabsContent
-            value="partner"
-            className="mt-10 rounded-[2rem] border border-border/60 bg-card p-6 shadow-soft sm:p-8 md:p-12"
-          >
+          <TabsContent value="bakery" className={panelClass}>
             <PartnerForm />
+          </TabsContent>
+          <TabsContent value="in-kind" className={panelClass}>
+            <InKindPanel />
           </TabsContent>
         </Tabs>
       </section>

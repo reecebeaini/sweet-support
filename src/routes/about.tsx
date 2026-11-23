@@ -63,7 +63,7 @@ function AboutPage() {
       <PageHero
         eyebrow="About us"
         title="Our story"
-        lede="A student-led effort to make sure perfectly good pastries end up with people, not in the trash."
+        lede="Thousands of perfectly good pastries are thrown away every day. We exist to get them to people instead."
       />
       <section className="mx-auto grid max-w-6xl gap-12 px-6 pb-20 pt-16 md:grid-cols-5 md:pb-24 md:pt-20">
         <Reveal variant="left" className="md:col-span-3 space-y-6 text-lg text-muted-foreground">

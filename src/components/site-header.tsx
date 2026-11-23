@@ -2,17 +2,14 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { DonutMark } from "@/components/donut-mark";
+import { cn } from "@/lib/utils";
 
 const links = [
-  { to: "/", label: "Home" },
   { to: "/about", label: "About" },
   { to: "/impact", label: "Impact" },
-  { to: "/bakeries", label: "Bakeries" },
   { to: "/get-involved", label: "Get Involved" },
   { to: "/start-a-chapter", label: "Start a Chapter" },
-  { to: "/contact", label: "Contact" },
 ] as const;
 
 export function SiteHeader() {
@@ -41,31 +38,27 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              activeOptions={{ exact: l.to === "/" }}
               activeProps={{ className: "bg-cream-deep text-brown font-semibold" }}
               inactiveProps={{ className: "text-muted-foreground" }}
-              className="rounded-full px-3 py-2 text-sm transition-colors hover:bg-cream-deep hover:text-brown"
+              className="rounded-full px-3.5 py-2 text-sm transition-colors hover:bg-cream-deep hover:text-brown"
             >
               {l.label}
             </Link>
           ))}
-        </nav>
-
-        <div className="hidden shrink-0 lg:block">
-          <Link to="/donate">
+          <Link to="/donate" className="ml-2">
             <Button className="rounded-full bg-brown px-5 text-cream shadow-soft transition hover:bg-brown-soft">
               Donate
             </Button>
           </Link>
-        </div>
+        </nav>
 
         <button
-          className="rounded-full p-2 text-brown transition hover:bg-cream-deep lg:hidden"
+          className="rounded-full p-2 text-brown transition hover:bg-cream-deep md:hidden"
           onClick={() => setOpen(!open)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
@@ -75,13 +68,12 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="border-t border-border/60 bg-cream lg:hidden">
-          <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4">
+        <div className="border-t border-border/60 bg-cream md:hidden">
+          <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4" aria-label="Mobile">
             {links.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
-                activeOptions={{ exact: l.to === "/" }}
                 activeProps={{ className: "bg-cream-deep font-semibold text-brown" }}
                 onClick={() => setOpen(false)}
                 className="rounded-xl px-3 py-2.5 text-sm text-foreground transition hover:bg-cream-deep"

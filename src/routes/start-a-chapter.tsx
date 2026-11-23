@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Users, MapPin, Heart } from "lucide-react";
+import { Users, MapPin, Heart, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
 import { PageHero } from "@/components/page-hero";
+import { ORG } from "@/lib/org";
 
 export const Route = createFileRoute("/start-a-chapter")({
   head: () => ({
@@ -40,6 +41,16 @@ const perks = [
     Icon: Heart,
     title: "National support",
     body: "Lean on our core team for guidance as you recruit volunteers and grow your chapter.",
+  },
+];
+
+const steps = [
+  { title: "Apply", body: "Tell us where you'd like to start a chapter and why." },
+  { title: "We reach out", body: "Our team gets back to you with next steps." },
+  { title: "Build your team", body: "Recruit volunteers and line up your first bakery partner." },
+  {
+    title: "Make your first delivery",
+    body: "Collect surplus and deliver it to a shelter or food bank near you.",
   },
 ];
 
@@ -92,7 +103,49 @@ function StartChapterPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-2xl px-6 pb-20 md:pb-24">
+      <section className="bg-cream-deep">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+          <div className="grid gap-12 md:grid-cols-5">
+            <Reveal variant="left" className="md:col-span-2">
+              <p className="eyebrow">Who can apply</p>
+              <h2 className="mt-4 font-display text-3xl text-brown md:text-4xl">
+                Ready to organize where you are
+              </h2>
+              <p className="mt-4 leading-relaxed text-muted-foreground">
+                If you care about food waste and hunger in your community and are ready to organize
+                in your own school or city, we'd love to hear from you.
+              </p>
+              {ORG.playbookUrl && (
+                <a
+                  href={ORG.playbookUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-6 inline-flex items-center gap-2 font-semibold text-brown transition-colors hover:text-brown-soft"
+                >
+                  <Download className="h-4 w-4" /> Preview the chapter playbook
+                </a>
+              )}
+            </Reveal>
+            <ol className="space-y-4 md:col-span-3">
+              {steps.map((st, i) => (
+                <Reveal key={st.title} delay={(Math.min(i, 3) * 100) as 0 | 100 | 200 | 300}>
+                  <li className="flex items-start gap-4 rounded-2xl bg-cream p-6 shadow-soft">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brown font-display text-sm text-cream">
+                      {i + 1}
+                    </span>
+                    <span>
+                      <span className="block font-display text-lg text-brown">{st.title}</span>
+                      <span className="text-sm text-muted-foreground">{st.body}</span>
+                    </span>
+                  </li>
+                </Reveal>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section id="apply" className="mx-auto max-w-2xl px-6 py-16 md:py-24">
         <Reveal variant="zoom">
           <div className="rounded-[2rem] bg-brown p-8 shadow-warm sm:p-10 md:p-12">
             <h2 className="font-display text-3xl text-cream md:text-4xl">
@@ -149,15 +202,26 @@ function StartChapterPage() {
                 </div>
                 <div>
                   <label htmlFor="grade" className="text-sm font-medium text-cream/80">
-                    Grade level
+                    Grade level <span className="text-cream/60">(if you're a student)</span>
                   </label>
                   <input
                     id="grade"
                     name="grade"
                     type="text"
-                    required
                     className={fieldClass}
                     placeholder="e.g. 10th grade"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="availability" className="text-sm font-medium text-cream/80">
+                    How much time can you give each week?
+                  </label>
+                  <input
+                    id="availability"
+                    name="availability"
+                    type="text"
+                    className={fieldClass}
+                    placeholder="So we can plan next steps together"
                   />
                 </div>
                 <div>
