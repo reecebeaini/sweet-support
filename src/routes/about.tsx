@@ -24,8 +24,8 @@ const leaders: { name: string; title: string; img?: string; initials: string }[]
   { name: "Alexa Nohai", title: "Co-Director of Publicity", img: alexa, initials: "AN" },
   { name: "Senuka Jayasinghe", title: "Director of Outreach", img: senuka, initials: "SJ" },
   { name: "Faizula Abrar", title: "Co-Director of Publicity", img: faizula, initials: "FA" },
-  { name: "Krish", title: "Chief Technology Officer", initials: "K" },
-  { name: "Joseph", title: "Chief Financial Officer", initials: "J" },
+  { name: "Krish Sathyan", title: "Chief Technology Officer", initials: "KS" },
+  { name: "Joseph Dennis Reyes", title: "Chief Financial Officer", initials: "JR" },
 ];
 
 const goals = [

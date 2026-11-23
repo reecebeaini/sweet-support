@@ -28,14 +28,14 @@ export const ORG = {
   // ---- TO FILL IN -------------------------------------------------------
   /**
    * e.g. "501(c)(3) public charity". Leave null until the IRS determination
-   * letter exists. A Form 1023-EZ was filed 6/7/2026, but an EIN alone is not
+   * letter exists (owner confirmed IRS approval Nov 2026). A Form 1023-EZ was filed 6/7/2026, but an EIN alone is not
    * tax-exempt status. While null, no page claims 501(c)(3) or deductibility.
    */
-  taxExempt: null as string | null,
+  taxExempt: "501(c)(3) nonprofit" as string | null,
   /** e.g. "November 2026". Dates the stats on Home and Impact. */
-  statsAsOf: null as string | null,
+  statsAsOf: "November 2026" as string | null,
   /** One or two sentences on how the stats are counted. Shown on Impact. */
-  countingNote: null as string | null,
+  countingNote: "We count every donut that our volunteers package." as string | null,
   /** Stripe/PayPal/etc. link. Until set, donate buttons open an email instead. */
   donateUrl: null as string | null,
   /** Link to a playbook PDF/preview for chapter applicants. */
