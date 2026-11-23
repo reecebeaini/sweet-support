@@ -18,12 +18,14 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
 });
 
-const leaders = [
+const leaders: { name: string; title: string; img?: string; initials: string }[] = [
   { name: "Reece Beaini", title: "Executive President", img: reece, initials: "RB" },
   { name: "Melody Hsiue", title: "Executive Vice President", img: melody, initials: "MH" },
+  { name: "Alexa Nohai", title: "Co-Director of Publicity", img: alexa, initials: "AN" },
   { name: "Senuka Jayasinghe", title: "Director of Outreach", img: senuka, initials: "SJ" },
-  { name: "Faizula Abrar", title: "Director of Publicity", img: faizula, initials: "FA" },
-  { name: "Alexa Nohai", title: "Director of Publicity", img: alexa, initials: "AN" },
+  { name: "Faizula Abrar", title: "Co-Director of Publicity", img: faizula, initials: "FA" },
+  { name: "Krish", title: "Chief Technology Officer", initials: "K" },
+  { name: "Joseph", title: "Chief Financial Officer", initials: "J" },
 ];
 
 const goals = [
@@ -104,12 +106,12 @@ function AboutPage() {
             <p className="eyebrow">The team</p>
             <h2 className="mt-4 font-display text-3xl text-brown md:text-4xl">Leadership</h2>
           </Reveal>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 flex flex-wrap justify-center gap-6">
             {leaders.map((person, i) => (
               <Reveal
                 key={person.name}
                 delay={(Math.min(i, 4) * 100) as 0 | 100 | 200 | 300 | 400}
-                className="h-full"
+                className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)]"
               >
                 <div className="hover-lift flex h-full flex-col items-center rounded-[1.75rem] bg-cream p-8 text-center shadow-soft">
                   {person.img ? (
